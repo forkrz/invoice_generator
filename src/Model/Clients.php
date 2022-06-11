@@ -24,6 +24,7 @@ class Clients extends Model
      *     minMessage = "Nip number must be exactly {{ limit }} characters long",
      *     maxMessage = "Nip number must be exactly {{ limit }} characters long",
      * )
+     * @CustomValidators\ClientsValidators\Nip(mode="loose")
      */
     public function getNip()
     {
@@ -32,7 +33,7 @@ class Clients extends Model
 
     /**
      * @Assert\NotBlank
-     * @CustomValidators\ClientName(mode="loose")
+     * @CustomValidators\ClientsValidators\ClientName(mode="loose")
      */
     public function getCompanyName()
     {
@@ -49,7 +50,7 @@ class Clients extends Model
 
     /**
      * @Assert\NotBlank
-     * @CustomValidators\ZipCode(mode="loose")
+     * @CustomValidators\ClientsValidators\ZipCode(mode="loose")
      */
     public function getZipCode()
     {

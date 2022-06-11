@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Form\ClientsFormType;
 use App\Model\Clients;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ Class ClientsController extends AbstractController
     /**
      * @Route("/clients/create")
      */
-    public function show(Request $request,ValidatorInterface $validator):Response
+    public function create(Request $request, ValidatorInterface $validator):Response
     {
         $clients = new Clients();
         $form = $this->createForm(ClientsFormType::class, $clients);
@@ -49,6 +50,21 @@ Class ClientsController extends AbstractController
                 'clients_form' => $form->createView(),
                 'errors' => $errors,
             ]));
+    }
+
+    /**
+     * @Route("/clients/show")
+     */
+    public function show():Response
+    {
+        if($this->getUser() === null)
+        {
+            return $this->render('security/login.html.twig');
+        }
+
+        $userClientsData = new Users();
+
+
     }
 
 }

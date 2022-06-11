@@ -1,5 +1,6 @@
 <?php
-namespace App\Validator;
+
+namespace App\Validator\ClientsValidators;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -7,9 +8,9 @@ use Symfony\Component\Validator\Constraint;
  * @Annotation
  */
 
-class ZipCode extends Constraint
+class Nip extends Constraint
 {
-    public $message = 'The string must be put in format 11-111';
+    public $message = 'You already have Client with this Nip.';
     public $mode;
 
     public function getRequiredOptions(): array
