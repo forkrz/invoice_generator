@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator as ZipCode;
+use App\Validator as CustomValidators;
 class Clients extends Model
 {
     public $casts = [
@@ -32,6 +32,7 @@ class Clients extends Model
 
     /**
      * @Assert\NotBlank
+     * @CustomValidators\ClientName(mode="loose")
      */
     public function getCompanyName()
     {
@@ -48,7 +49,7 @@ class Clients extends Model
 
     /**
      * @Assert\NotBlank
-     * @ZipCode\ZipCode(mode="loose")
+     * @CustomValidators\ZipCode(mode="loose")
      */
     public function getZipCode()
     {
