@@ -5,11 +5,13 @@ namespace App\Form;
 use App\Model\Clients;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\BaseType;
 
 class ClientsFormType extends AbstractType
 {
@@ -17,7 +19,7 @@ class ClientsFormType extends AbstractType
     {
         $builder
             ->setMethod('POST')
-            ->add('NIP')
+            ->add('NIP', TextType::class)
             ->add('COMPANY_NAME')
             ->add('STREET')
             ->add('ZIP_CODE')

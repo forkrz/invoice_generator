@@ -3,18 +3,20 @@
 namespace App\Validator\ClientsValidators;
 
 use App\Model\Clients;
+use Illuminate\Database\Eloquent\Builder;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
-
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ClientNameValidator extends ConstraintValidator
 {
-    public function __construct(Security $security)
+    public function __construct(Security $security, RequestStack $requestStack)
     {
         $this->security = $security;
+        $this->requestStack = $requestStack;
     }
 
     public function validate($value, Constraint $constraint)
@@ -41,6 +43,9 @@ class ClientNameValidator extends ConstraintValidator
 
         $userClientsIds = Clients::query()
             ->where('USER_ID', $this->security->getUser()->getId())
+            ->when($this->requestStack->getCurrentRequest()->attributes->get('id') !== null,function(Builder $query){
+                $query->whereNot('ID', $this->requestStack->getCurrentRequest()->attributes->get('id'));
+            })
             ->where('company_name', $value)
             ->first();
 

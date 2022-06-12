@@ -19,5 +19,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "imask": "^6.4.2",
+        "string-mask": "^0.3.0"
     }
 }

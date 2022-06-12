@@ -13,7 +13,7 @@
 
                                     {{ form_start(clients_form, {'method': 'POST'}) }}
                                     <div class="form-outline mb-4">
-                                        {{ form_widget(clients_form.NIP, {'id': 'form3Example1cg','attr': {'class': 'form-control form-control-lg'}}) }}
+                                        {{ form_widget(clients_form.NIP, {'id': 'NIP','attr': {'class': 'form-control form-control-lg'}}) }}
                                         {{ form_label(clients_form.NIP,null, {'label': ' Client Nip', 'label_attr': {'class': 'form-label'}}) }}
                                         {%  if errors.nip is defined %}
                                             <div style="color: red">{{  errors.nip }}</div>
@@ -37,7 +37,7 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        {{ form_widget(clients_form.ZIP_CODE, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+                                        {{ form_widget(clients_form.ZIP_CODE, {'id': 'ZIP','attr': {'class': 'form-control form-control-lg'}}) }}
                                         {{ form_label(clients_form.ZIP_CODE,null, {'label': 'ZIP CODE', 'label_attr': {'class': 'form-label'}}) }}
                                         {%  if errors.zipCode is defined %}
                                             <div style="color: red">{{  errors.zipCode }}</div>
