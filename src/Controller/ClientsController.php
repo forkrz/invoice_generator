@@ -116,7 +116,7 @@ Class ClientsController extends AbstractController
                 ->where('USER_ID',$this->getUser()->getId())
                 ->update($fieldsToUpdate);
 
-            $this->addFlash('success', 'Client Data Updated');
+            $this->addFlash('success', 'Client data updated');
             return new Response($this->redirectToRoute('show_clients'));
 
         }
@@ -130,12 +130,11 @@ Class ClientsController extends AbstractController
     /**
      * @Route("/clients/delete/id={id}", name="delete_client")
      */
-    public function delete($id, Request $request):Response
+    public function delete($id):Response
     {
         $editedClientData = Clients::query()
             ->where('ID', $id)
             ->where('USER_ID',$this->getUser()->getId())
-            ->select('NIP','COMPANY_NAME','STREET','ZIP_CODE','CITY','EMAIL')
             ->first();
 
         if(empty($editedClientData))

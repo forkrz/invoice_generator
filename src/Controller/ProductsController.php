@@ -1,0 +1,153 @@
+<?php
+
+namespace App\Controller;
+
+use App\Form\ClientsFormType;
+use App\Form\ProductsFormType;
+use App\Model\Clients;
+use App\Model\Products;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+Class ProductsController extends AbstractController
+{
+
+    /**
+     * @Route("/products/create", name="create_product")
+     */
+    public function create(Request $request, ValidatorInterface $validator):Response
+    {
+        $products = new Products();
+        $form = $this->createForm(ClientsFormType::class, $products);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $formData = $request->request->all()['products_form'];
+            $products = new Products();
+            $products->NAME = $formData['NAME'];
+            $products->PRICE = $formData['PRICE'];
+            $products->User_ID = $this->getuser()->getId();
+            $products->save();
+        }
+
+
+        $errors = [];
+
+        foreach($validator->validate($form) as $error){
+            $fieldName = substr($error->getPropertyPath(),5);
+            $errors[] = [$fieldName => $error->getMessage()];
+        }
+
+        $errors = array_merge(...$errors);
+
+        return new Response($this->render('/products/create.html.twig', [
+            'products_form' => $form->createView(),
+            'errors' => $errors,
+        ]));
+    }
+
+    /**
+     * @Route("/products/show", name="show_products")
+     */
+    public function show():Response
+    {
+        if($this->getUser() === null)
+        {
+            return $this->render('security/login.html.twig');
+        }
+
+        $productsClientsData = Products::query()
+            ->where('USER_ID', $this->getUser()->getId())
+            ->get()
+            ->toArray();
+
+        if(empty($userClientsData)){
+            return new Response($this->render('/products/show.html.twig', [
+                'msgEmptyList' => 'You do not have any products. You can add them&nbsp;',
+                'msgLink' => $this->generateUrl('create_product'),
+            ]));
+        }
+
+        return new Response($this->render('/products/show.html.twig', [
+            'productsData' => $productsClientsData,
+        ]));
+    }
+
+    /**
+     * @Route("/products/update/id={id}", name="update_product")
+     */
+    public function update($id, Request $request):Response
+    {
+        $editedProductsData = Products::query()
+            ->where('ID', $id)
+            ->where('USER_ID',$this->getUser()->getId())
+            ->select('NAME','PRICE')
+            ->first();
+
+        $productDataToCompare = clone $editedProductsData;
+
+        if(empty($editedProductsData))
+        {
+            $this->addFlash('error', 'You are not allowed to edit these product');
+            return new Response($this->redirectToRoute('show_clients'));
+        }
+
+        $form = $this->createForm(ProductsFormType::class, $editedProductsData);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $formData = $request->request->all()['products_form'];
+            $formDataKeysNotToEdit = ['Submit','_token'];
+            $formDataToCheck = array_diff_key($formData, array_flip($formDataKeysNotToEdit));
+            $fieldsToUpdate = array_diff_assoc($formDataToCheck, $productDataToCompare->toArray());
+
+            if(empty($fieldsToUpdate)){
+                $this->addFlash('error', 'There is nothing to change');
+                return new Response($this->redirectToRoute('show_products'));
+            }
+
+            Products::query()
+                ->where('ID', $id)
+                ->where('USER_ID',$this->getUser()->getId())
+                ->update($fieldsToUpdate);
+
+            $this->addFlash('success', 'Product data updated');
+            return new Response($this->redirectToRoute('show_products'));
+
+        }
+
+        return new Response($this->render('/clients/edit.html.twig', [
+            'productData' => $editedProductsData,
+            'products_form' => $form->createView(),
+        ]));
+    }
+
+    /**
+     * @Route("/products/delete/id={id}", name="delete_product")
+     */
+    public function delete($id):Response
+    {
+        $editedProductData = Products::query()
+            ->where('ID', $id)
+            ->where('USER_ID',$this->getUser()->getId())
+            ->first();
+
+        if(empty($editedProductData))
+        {
+            $this->addFlash('error', 'You are not allowed to delete these product');
+            return new Response($this->redirectToRoute('show_products'));
+        }
+
+        Products::query()
+            ->where('ID', $id)
+            ->where('USER_ID',$this->getUser()->getId())
+            ->delete();
+
+        $this->addFlash('success', 'Product has been deleted');
+        return new Response($this->redirectToRoute('show_products'));
+    }
+
+}
