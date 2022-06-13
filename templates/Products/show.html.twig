@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="pt-4 d-flex justify-content-center align-items-center">
+        {% if productsData is defined%}
+            <table class="table w-50">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                <tbody>
+                {% for productData in productsData %}
+                    <tr>
+                        <th scope="row"> {{ loop.index }} </th>
+                        <td> {{ productData.NAME }}  </td>
+                        <td> {{ productData.PRICE }} </td>
+                        <td> <a href="{{ path('update_product', {'id': productData.ID}) }}">Edit</a></td>
+                        <td> <a href="{{ path('delete_product', {'id': productData.ID}) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% elseif msgEmptyList is defined%}
+            {{ msgEmptyList|replace({" ": "&nbsp;"})|raw|nl2br }}  <a href="{{ msgLink }}"> here.</a>
+        {% endif %}
+    </div>
+
+{% endblock %}

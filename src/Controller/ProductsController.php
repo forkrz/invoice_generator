@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Controller;
-
-use App\Form\ClientsFormType;
 use App\Form\ProductsFormType;
-use App\Model\Clients;
 use App\Model\Products;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +17,7 @@ Class ProductsController extends AbstractController
     public function create(Request $request, ValidatorInterface $validator):Response
     {
         $products = new Products();
-        $form = $this->createForm(ClientsFormType::class, $products);
+        $form = $this->createForm(ProductsFormType::class, $products);
 
         $form->handleRequest($request);
 
@@ -31,6 +28,8 @@ Class ProductsController extends AbstractController
             $products->PRICE = $formData['PRICE'];
             $products->User_ID = $this->getuser()->getId();
             $products->save();
+            $this->addFlash('success', 'Product has been created');
+            return new Response($this->redirectToRoute('show_products'));
         }
 
 
@@ -59,12 +58,12 @@ Class ProductsController extends AbstractController
             return $this->render('security/login.html.twig');
         }
 
-        $productsClientsData = Products::query()
+        $productsUserData = Products::query()
             ->where('USER_ID', $this->getUser()->getId())
             ->get()
             ->toArray();
 
-        if(empty($userClientsData)){
+        if(empty($productsUserData)){
             return new Response($this->render('/products/show.html.twig', [
                 'msgEmptyList' => 'You do not have any products. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('create_product'),
@@ -72,7 +71,7 @@ Class ProductsController extends AbstractController
         }
 
         return new Response($this->render('/products/show.html.twig', [
-            'productsData' => $productsClientsData,
+            'productsData' => $productsUserData,
         ]));
     }
 
@@ -92,7 +91,7 @@ Class ProductsController extends AbstractController
         if(empty($editedProductsData))
         {
             $this->addFlash('error', 'You are not allowed to edit these product');
-            return new Response($this->redirectToRoute('show_clients'));
+            return new Response($this->redirectToRoute('show_products'));
         }
 
         $form = $this->createForm(ProductsFormType::class, $editedProductsData);
@@ -119,7 +118,7 @@ Class ProductsController extends AbstractController
 
         }
 
-        return new Response($this->render('/clients/edit.html.twig', [
+        return new Response($this->render('/products/edit.html.twig', [
             'productData' => $editedProductsData,
             'products_form' => $form->createView(),
         ]));

@@ -15,15 +15,19 @@ class Products extends Model
 
     /**
      * @Assert\NotBlank
+     * @CustomValidators\ProductsValidators\ProductName(mode="loose")
      */
     public function getName(){
         return $this->NAME;
     }
 
     /**
-     * @Assrt\NotBlank
+     * @Assert\NotBlank
      * @CustomValidators\ProductsValidators\Money(mode="loose")
      */
+    public function getPrice(){
+        return $this->PRICE;
+    }
 
     protected $primaryKey = 'id';
     public $timestamps = false;

@@ -33,6 +33,9 @@ Class ClientsController extends AbstractController
                 $client->EMAIL = $formData['EMAIL'];
                 $client->User_ID = $this->getuser()->getId();
                 $client->save();
+
+                $this->addFlash('success', 'Client created');
+                return new Response($this->redirectToRoute('show_clients'));
             }
 
 

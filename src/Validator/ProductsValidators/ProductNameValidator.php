@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-class MoneyValidator extends ConstraintValidator
+class ProductNameValidator extends ConstraintValidator
 {
     public function __construct(Security $security,RequestStack $requestStack)
     {
@@ -21,8 +21,8 @@ class MoneyValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        if (!$constraint instanceof Money) {
-            throw new UnexpectedTypeException($constraint, Money::class);
+        if (!$constraint instanceof ProductName) {
+            throw new UnexpectedTypeException($constraint, ProductName::class);
         }
 
         // custom constraints should ignore null and empty values to allow
@@ -31,8 +31,8 @@ class MoneyValidator extends ConstraintValidator
             return;
         }
 
-        if (!is_float($value)) {
-            throw new UnexpectedValueException($value, 'float');
+        if (!is_string($value)) {
+            throw new UnexpectedValueException($value, 'is_string');
 
         }
 
@@ -41,7 +41,15 @@ class MoneyValidator extends ConstraintValidator
             // ...
         }
 
-        if (!preg_match('/^\-?[0-9]+(?:\.[0-9]{1,2})?$/', $value, $matches)) {
+        $userProductsNames = Products::query()
+            ->where('USER_ID', $this->security->getUser()->getId())
+            ->when($this->requestStack->getCurrentRequest()->attributes->get('id') !== null,function(Builder $query){
+                $query->whereNot('ID', $this->requestStack->getCurrentRequest()->attributes->get('id'));
+            })
+            ->where('NAME', $value)
+            ->first();
+
+        if (!is_null($userProductsNames)) {
             // the argument must be a string or an object implementing __toString()
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)

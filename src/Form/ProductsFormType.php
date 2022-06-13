@@ -3,7 +3,7 @@
 
 namespace App\Form;
 
-use App\Model\Clients;
+use App\Model\Products;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +26,7 @@ class ProductsFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Clients::class,
+            'data_class' => Products::class,
             'error_mapping' => []
         ]);
     }
