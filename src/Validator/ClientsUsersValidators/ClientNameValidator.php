@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validator\ClientsValidators;
+namespace App\Validator\ClientsUsersValidators;
 
 use App\Model\Clients;
 use Illuminate\Database\Eloquent\Builder;
@@ -37,23 +37,21 @@ class ClientNameValidator extends ConstraintValidator
         }
 
         // access your configuration options like this:
-        if ('strict' === $constraint->mode) {
-            // ...
-        }
+        if ($constraint->mode === 'client') {
+            $userClientsIds = Clients::query()
+                ->where('USER_ID', $this->security->getUser()->getId())
+                ->when($this->requestStack->getCurrentRequest()->attributes->get('id') !== null,function(Builder $query){
+                    $query->whereNot('ID', $this->requestStack->getCurrentRequest()->attributes->get('id'));
+                })
+                ->where('company_name', $value)
+                ->first();
 
-        $userClientsIds = Clients::query()
-            ->where('USER_ID', $this->security->getUser()->getId())
-            ->when($this->requestStack->getCurrentRequest()->attributes->get('id') !== null,function(Builder $query){
-                $query->whereNot('ID', $this->requestStack->getCurrentRequest()->attributes->get('id'));
-            })
-            ->where('company_name', $value)
-            ->first();
-
-        if (!is_null($userClientsIds)) {
-            // the argument must be a string or an object implementing __toString()
-            $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ string }}', $value)
-                ->addViolation();
+            if (!is_null($userClientsIds)) {
+                // the argument must be a string or an object implementing __toString()
+                $this->context->buildViolation($constraint->message)
+                    ->setParameter('{{ string }}', $value)
+                    ->addViolation();
+            }
         }
     }
 }

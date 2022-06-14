@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validator\ClientsValidators;
+namespace App\Validator\ClientsUsersValidators;
 
 use App\Model\Clients;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,6 +21,7 @@ class NipValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
+
         if (!$constraint instanceof Nip) {
             throw new UnexpectedTypeException($constraint, Nip::class);
         }
@@ -36,24 +37,21 @@ class NipValidator extends ConstraintValidator
 
         }
 
-        // access your configuration options like this:
-        if ('strict' === $constraint->mode) {
-            // ...
-        }
+        if ($constraint->mode === 'client') {
+            $userClientsNips = Clients::query()
+                ->where('USER_ID', $this->security->getUser()->getId())
+                ->when($this->requestStack->getCurrentRequest()->attributes->get('id') !== null,function(Builder $query){
+                    $query->whereNot('ID', $this->requestStack->getCurrentRequest()->attributes->get('id'));
+                })
+                ->where('NIP', $value)
+                ->first();
 
-        $userClientsNips = Clients::query()
-            ->where('USER_ID', $this->security->getUser()->getId())
-            ->when($this->requestStack->getCurrentRequest()->attributes->get('id') !== null,function(Builder $query){
-                $query->whereNot('ID', $this->requestStack->getCurrentRequest()->attributes->get('id'));
-            })
-            ->where('NIP', $value)
-            ->first();
-
-        if (!is_null($userClientsNips)) {
-            // the argument must be a string or an object implementing __toString()
-            $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ string }}', $value)
-                ->addViolation();
+            if (!is_null($userClientsNips)) {
+                // the argument must be a string or an object implementing __toString()
+                $this->context->buildViolation($constraint->message)
+                    ->setParameter('{{ string }}', $value)
+                    ->addViolation();
+            }
         }
     }
 }
