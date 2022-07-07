@@ -86,13 +86,13 @@ Class ProductsController extends AbstractController
             ->select('NAME','PRICE')
             ->first();
 
-        $productDataToCompare = clone $editedProductsData;
-
         if(empty($editedProductsData))
         {
             $this->addFlash('error', 'You are not allowed to edit these product');
             return new Response($this->redirectToRoute('show_products'));
         }
+
+        $productDataToCompare = clone $editedProductsData;
 
         $form = $this->createForm(ProductsFormType::class, $editedProductsData);
         $form->handleRequest($request);
