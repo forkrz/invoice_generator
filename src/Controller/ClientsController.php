@@ -84,7 +84,7 @@ Class ClientsController extends AbstractController
     /**
      * @Route("/clients/update/id={id}", name="update_client")
      */
-    public function update($id, Request $request):Response
+    public function update($id, Request $request,ValidatorInterface $validator):Response
     {
         $editedClientData = Clients::query()
             ->where('ID', $id)
@@ -124,9 +124,19 @@ Class ClientsController extends AbstractController
 
         }
 
+        $errors = [];
+
+        foreach($validator->validate($form) as $error){
+            $fieldName = substr($error->getPropertyPath(),5);
+            $errors[] = [$fieldName => $error->getMessage()];
+        }
+
+        $errors = array_merge(...$errors);
+
         return new Response($this->render('/clients/edit.html.twig', [
             'clientData' => $editedClientData,
             'clients_form' => $form->createView(),
+            'errors' => $errors,
         ]));
     }
 
