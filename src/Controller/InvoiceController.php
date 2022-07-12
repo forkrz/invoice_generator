@@ -14,7 +14,7 @@ class InvoiceController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        return $this->render('Invoice/create.html.twig');
+        return $this->render('Invoice/generate.html.twig');
     }
 }
 
