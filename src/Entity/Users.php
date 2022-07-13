@@ -26,6 +26,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(type: 'string')]
+    private $INVOICE_UNIQUE_KEY;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -41,6 +44,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
 
         return $this;
+    }
+
+    public function setInvoiceUniqueKey(string $invoiceKey): self
+    {
+        $this->INVOICE_UNIQUE_KEY = $invoiceKey;
+
+        return $this;
+    }
+
+    public function getInvoiceUniqueKey(): ?string
+    {
+        return $this->INVOICE_UNIQUE_KEY;
     }
 
     /**
