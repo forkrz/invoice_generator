@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% dump settings %}
 <div class="wrapper" style="display:flex; flex-direction: row; padding-top: 3rem; flex-wrap: wrap; justify-content:center;max-width: 1366px">
     <form>
         <div class="wrapper" style="display:flex; flex-direction: row; width:100vw; flex-wrap: wrap; justify-content:center">
@@ -9,36 +10,36 @@
                     <option selected disabled hidden>Select Client</option>
                 </select>
             </div>
-    <div style="border: 1px solid #1221e1;width:40%; margin:0 5rem;display:flex;flex-direction:column;">
+    <div style="border: 1px solid #1221e1;width:40%; margin:0 5rem;display:flex;flex-direction:column;" id="users_data">
         <h2 style="border-bottom:1px solid blue"> User Data</h2>
         <div style="display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;margin-top:0.5rem">
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                <input style="display:block; text-align:center" {% if settings.NIP is defined %} value="{{ settings.NIP }}"{% endif %}>
                 <label class='form-label'>NIP</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                <input style="display:block;text-align:center" {% if settings.NAME is defined %} value="{{ settings.NAME }}"{% endif %}>
                 <label class='form-label'>Name</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                <input style="display:block;text-align:center" {% if settings.STREET is defined %} value="{{ settings.STREET }}"{% endif %}>
                 <label class='form-label'>Street</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                <input style="display:block;text-align:center" {% if settings.ZIP_CODE is defined %} value="{{ settings.ZIP_CODE }}"{% endif %}>
                 <label class='form-label'>Zip-Code</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                <input style="display:block;text-align:center" {% if settings.CITY is defined %} value="{{ settings.CITY }}"{% endif %}>
                 <label class='form-label'>City</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                <input style="display:block;text-align:center" {% if settings.EMAIL is defined %} value="{{ settings.EMAIL }}"{% endif %}>
                 <label class='form-label'>Email</label>
             </div>
         </div>
