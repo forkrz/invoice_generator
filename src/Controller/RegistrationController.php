@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -23,7 +22,20 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        $uniqueKeys = $entityManager->createQuery('SELECT u.INVOICE_UNIQUE_KEY FROM App\Entity\Users u')->getResult(\Doctrine\ORM\Query::HYDRATE_SCALAR_COLUMN);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            function checkUniqnessOfHash($uniqueKeys,$user){
+                $newUniqueKey = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
+                if(in_array($newUniqueKey, $uniqueKeys)){
+                    checkUniqnessOfHash($uniqueKeys,$user);
+                }else{
+                    $user->setInvoiceUniqueKey($newUniqueKey);
+                }
+            }
+
+            checkUniqnessOfHash($uniqueKeys,$user);
             // encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(
