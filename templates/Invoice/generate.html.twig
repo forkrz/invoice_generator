@@ -3,7 +3,7 @@
 {% block body %}
 
 <div class="wrapper" style="display:flex; flex-direction: row; padding-top: 3rem; flex-wrap: wrap; justify-content:center;max-width: 1366px">
-    <form>
+    {{ form_start(invoice_form, {'method': 'POST'}) }}
         <div class="wrapper" style="display:flex; flex-direction: row; width:100vw; flex-wrap: wrap; justify-content:center">
             <div style="width: 100%;display:flex;justify-content:flex-end;margin-bottom:0.5rem;margin-right: 11rem">
                 <select>
@@ -14,32 +14,32 @@
         <h2 style="border-bottom:1px solid blue"> User Data</h2>
         <div style="display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;margin-top:0.5rem">
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block; text-align:center" {% if settings.NIP is defined %} value="{{ settings.NIP }}"{% endif %}>
+                {{ form_widget(invoice_form.USER_NIP, {'attr': {'style': 'display:block; text-align:center','value': settings.NIP|default('')}}) }}
                 <label class='form-label'>NIP</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block;text-align:center" {% if settings.NAME is defined %} value="{{ settings.NAME }}"{% endif %}>
+                {{ form_widget(invoice_form.USER_NAME, {'attr': {'style': 'display:block; text-align:center','value': settings.NAME|default('')}}) }}
                 <label class='form-label'>Name</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block;text-align:center" {% if settings.STREET is defined %} value="{{ settings.STREET }}"{% endif %}>
+                {{ form_widget(invoice_form.USER_STREET, {'attr': {'style': 'display:block; text-align:center','value': settings.STREET|default('')}}) }}
                 <label class='form-label'>Street</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block;text-align:center" {% if settings.ZIP_CODE is defined %} value="{{ settings.ZIP_CODE }}"{% endif %}>
+                {{ form_widget(invoice_form.USER_ZIP_CODE, {'attr': {'style': 'display:block; text-align:center','value': settings.ZIP_CODE|default('')}}) }}
                 <label class='form-label'>Zip-Code</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block;text-align:center" {% if settings.CITY is defined %} value="{{ settings.CITY }}"{% endif %}>
+                {{ form_widget(invoice_form.USER_CITY, {'attr': {'style': 'display:block; text-align:center','value': settings.CITY|default('')}}) }}
                 <label class='form-label'>City</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block;text-align:center" {% if settings.EMAIL is defined %} value="{{ settings.EMAIL }}"{% endif %}>
+                {{ form_widget(invoice_form.USER_EMAIL, {'attr': {'style': 'display:block; text-align:center','value': settings.EMAIL|default('')}}) }}
                 <label class='form-label'>Email</label>
             </div>
         </div>
@@ -50,32 +50,32 @@
         <h2 style="border-bottom:1px solid blue"> Clients Data</h2>
         <div style="display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;margin-top:0.5rem">
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                {{ form_widget(invoice_form.CLIENT_NIP, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>NIP</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                {{ form_widget(invoice_form.CLIENT_NAME, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Name</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                {{ form_widget(invoice_form.CLIENT_STREET, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Street</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                {{ form_widget(invoice_form.CLIENT_ZIP_CODE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Zip-Code</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                {{ form_widget(invoice_form.CLIENT_CITY, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>City</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                <input style="display:block">
+                {{ form_widget(invoice_form.CLIENT_EMAIL, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Email</label>
             </div>
 
@@ -93,47 +93,47 @@
         <div style="display:flex;text-align:center;margin-top:0.5rem;margin-left: 0.5rem;justify-content:center">
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.PRODUCT_NAME, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Product Name</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.NET_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Net Price</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.TAX_RATE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Tax Rate</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.DATE_OF_ISSUE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Creation Date</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.PAY_BY, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Paid to</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.REALISED_ON, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Service Date</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.QUANTITY, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Quantity</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.GROSS_UNIT_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Gross unit price</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                <input style="display:block">
+                {{ form_widget(invoice_form.TOTAL_GROSS_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Total Gross Price</label>
             </div>
 
@@ -142,9 +142,9 @@
             <div style="width: 100%;display:flex;justify-content:flex-end;margin-right:11rem">
                 <a href="#"> add product</a>
             </div>
-            <button>Generate</button>
+            {{ form_widget(invoice_form.Submit, {'attr': {'style': 'display:block; text-align:center','value':'generate'}}) }}
         </div>
-    </form>
+    {{ form_end(invoice_form) }}
 </div>
 
 
