@@ -199,6 +199,9 @@
     "psr/simple-cache": {
         "version": "3.0.0"
     },
+    "qipsius/tcpdf-bundle": {
+        "version": "2.0.2"
+    },
     "sebastian/cli-parser": {
         "version": "1.0.1"
     },

@@ -110,9 +110,9 @@ class Invoices extends Model
      * @Assert\NotBlank
      * @CustomValidators\ClientsUsersValidators\ClientName(mode="client")
      */
-    public function getClientCompanyName()
+    public function getClientName()
     {
-        return $this->CLIENT_COMPANY_NAME;
+        return $this->CLIENT_NAME;
     }
 
     /**
