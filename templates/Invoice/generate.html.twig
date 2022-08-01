@@ -82,58 +82,68 @@
         </div>
     </div>
 
-            <div style="width: 100%;display:flex;justify-content:flex-end;margin:2rem 11rem 1rem 0">
+    <div style="border: 1px solid #1221e1;width:86.2%;margin:4rem 4.9rem 0.5rem 4.9rem;">
+        <h2 style="border-bottom:1px solid blue"> Dates Data</h2>
+        <div style="display:flex;text-align:center;margin-top:0.5rem;margin-left: 0.5rem;justify-content:center;align-items:center;">
+            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
+                {{ form_widget(invoice_form.Product.DATE_OF_ISSUE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <label class='form-label'>Creation Date</label>
+            </div>
+
+            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
+                {{ form_widget(invoice_form.Product.PAY_BY, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <label class='form-label'>Paid to</label>
+            </div>
+
+            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
+                {{ form_widget(invoice_form.Product.REALISED_ON, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <label class='form-label'>Service Date</label>
+            </div>
+        </div>
+    </div>
+
+            <div style="width: 100%;display:flex;justify-content:flex-end;margin:0.5rem 11rem 1rem 0">
                 <select>
                     <option selected disabled hidden>Select Client</option>
                 </select>
             </div>
 
-    <div style="border: 1px solid #1221e1;width:86.5%;height:200px;margin:0 4.9rem 0.5rem 4.9rem;">
+    <div style="border: 1px solid #1221e1;width:86.5%;margin:0 4.9rem 0.5rem 4.9rem;">
         <h2 style="border-bottom:1px solid blue"> Products Data</h2>
         <div style="display:flex;text-align:center;margin-top:0.5rem;margin-left: 0.5rem;justify-content:center">
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.PRODUCT_NAME, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                {{ form_widget(invoice_form.Product.PRODUCT_NAME, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Product Name</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.NET_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                <label class='form-label'>Net Price</label>
-            </div>
-
-            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.TAX_RATE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                <label class='form-label'>Tax Rate</label>
-            </div>
-
-            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.DATE_OF_ISSUE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                <label class='form-label'>Creation Date</label>
-            </div>
-
-            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.PAY_BY, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                <label class='form-label'>Paid to</label>
-            </div>
-
-            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.REALISED_ON, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                <label class='form-label'>Service Date</label>
-            </div>
-
-            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.QUANTITY, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                {{ form_widget(invoice_form.Product.QUANTITY, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Quantity</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.GROSS_UNIT_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                <label class='form-label'>Gross unit price</label>
+                {{ form_widget(invoice_form.Product.NET_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <label class='form-label'>Net Price</label>
             </div>
 
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                {{ form_widget(invoice_form.TOTAL_GROSS_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <input>
+                <label class='form-label'>Net value</label>
+            </div>
+
+            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
+                {{ form_widget(invoice_form.Product.TAX_RATE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <label class='form-label'>Tax Rate</label>
+            </div>
+
+            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
+                {{ form_widget(invoice_form.Product.GROSS_UNIT_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <label class='form-label'>Tax Value</label>
+            </div>
+
+            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
+                {{ form_widget(invoice_form.Product.TOTAL_GROSS_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>Total Gross Price</label>
             </div>
 
@@ -142,7 +152,7 @@
             <div style="width: 100%;display:flex;justify-content:flex-end;margin-right:11rem">
                 <a href="#"> add product</a>
             </div>
-            {{ form_widget(invoice_form.Submit, {'attr': {'style': 'display:block; text-align:center','value':'generate'}}) }}
+            {{ form_widget(invoice_form.submit, {'attr': {'style': 'display:block; text-align:center','value':'generate'}}) }}
         </div>
     {{ form_end(invoice_form) }}
 </div>

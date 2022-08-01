@@ -5,16 +5,18 @@ namespace App\Form;
 
 use App\Model\Invoices;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class InvoiceFormType extends AbstractType
+class ClientUserDataInvoiceFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->setMethod('POST')
             ->add('USER_NIP', TextType::class)
@@ -30,17 +32,8 @@ class InvoiceFormType extends AbstractType
             ->add('CLIENT_ZIP_CODE', TextType::class)
             ->add('CLIENT_CITY', TextType::class)
             ->add('CLIENT_EMAIL', TextType::class)
-            ->add('DATE_OF_ISSUE', TextType::class,['empty_data' =>date('Y/m/d')])
-            ->add('PAY_BY', TextType::class)
-            ->add('REALISED_ON', TextType::class)
-            ->add('TAX_RATE', TextType::class)
-            ->add('NET_PRICE', TextType::class)
-            ->add('GROSS_UNIT_PRICE', TextType::class)
-            ->add('PRODUCT_NAME', TextType::class)
-            ->add('QUANTITY', TextType::class)
-            ->add('TOTAL_GROSS_PRICE', MoneyType::class)
-            ->add('Submit', SubmitType::class)
-        ;
+            ->add('Product', ProductsInvoiceFormType::class)
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

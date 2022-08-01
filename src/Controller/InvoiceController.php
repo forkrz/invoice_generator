@@ -2,19 +2,23 @@
 
 namespace App\Controller;
 
-use App\Form\InvoiceFormType;
+use App\Form\ProductsInvoiceFormType;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Form\ClientUserDataInvoiceFormType;
 use App\Model\Invoices;
 use App\Model\UsersData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\PdfGenerator\PdfGenerator;
+use App\Entity\Users;
 
 class InvoiceController extends AbstractController
 {
 
     #[Route('/create', name: 'invoice_create')]
-    public function index(Request $request): Response
+    public function index(Request $request, PdfGenerator $pdf, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $settings = UsersData::query()
@@ -24,9 +28,14 @@ class InvoiceController extends AbstractController
             ->toArray();
 
         $invoice = new Invoices();
-        $form = $this->createForm(InvoiceFormType::class,$invoice);
+        $form = $this->createForm(ClientUserDataInvoiceFormType::class,$invoice);
         $form->handleRequest($request);
-        dump($form);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $userData = $entityManager->getRepository(Users::class)->find($this->getUser());
+            $formData = $form->getData();
+            $pdf->create($userData, $formData);
+        }
         return $this->render('Invoice/generate.html.twig',[
             'settings' => array_merge(...$settings),
             'invoice_form' => $form->createView(),
