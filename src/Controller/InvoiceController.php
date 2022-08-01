@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\ProductsInvoiceFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\InvoiceFormType;
+use App\Form\ClientUserDataInvoiceFormType;
 use App\Model\Invoices;
 use App\Model\UsersData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +28,7 @@ class InvoiceController extends AbstractController
             ->toArray();
 
         $invoice = new Invoices();
-        $form = $this->createForm(InvoiceFormType::class,$invoice);
+        $form = $this->createForm(ClientUserDataInvoiceFormType::class,$invoice);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
