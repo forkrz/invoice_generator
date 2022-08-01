@@ -2,12 +2,15 @@
 
 {% block body %}
 
-<div class="wrapper" style="display:flex; flex-direction: row; padding-top: 3rem; flex-wrap: wrap; justify-content:center;max-width: 1366px">
+<div class="wrapper" style="display:flex; flex-direction: row; padding-top: 3rem; flex-wrap: wrap; justify-content:center;">
     {{ form_start(invoice_form, {'method': 'POST'}) }}
         <div class="wrapper" style="display:flex; flex-direction: row; width:100vw; flex-wrap: wrap; justify-content:center">
             <div style="width: 100%;display:flex;justify-content:flex-end;margin-bottom:0.5rem;margin-right: 11rem">
-                <select>
+                <select id="clientsListSelect">
                     <option selected disabled hidden>Select Client</option>
+                    {% for client in clientsList %}
+                        <option data-nip="{{ client.NIP }}" data-company-name="{{ client.COMPANY_NAME }}" data-street="{{ client.STREET }}" data-zip-code="{{ client.ZIP_CODE }}" data-city="{{ client.EMAIL }}" data-email = "{{ client.EMAIL }}"> {{ client.COMPANY_NAME  }}</option>
+                    {% endfor %}
                 </select>
             </div>
     <div style="border: 1px solid #1221e1;width:40%; margin:0 5rem;display:flex;flex-direction:column;" id="users_data">
@@ -48,7 +51,7 @@
 
     <div style="border: 1px solid #1221e1;width:40%;margin:0 5rem;">
         <h2 style="border-bottom:1px solid blue"> Clients Data</h2>
-        <div style="display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;margin-top:0.5rem">
+        <div style="display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;margin-top:0.5rem" id="clientsListData">
             <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
                 {{ form_widget(invoice_form.CLIENT_NIP, {'attr': {'style': 'display:block; text-align:center'}}) }}
                 <label class='form-label'>NIP</label>

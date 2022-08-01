@@ -13,12 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\PdfGenerator\PdfGenerator;
 use App\Entity\Users;
+use App\Service\InvoiceHelper;
 
 class InvoiceController extends AbstractController
 {
 
     #[Route('/create', name: 'invoice_create')]
-    public function index(Request $request, PdfGenerator $pdf, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, PdfGenerator $pdf, EntityManagerInterface $entityManager, InvoiceHelper $invoiceHelper): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $settings = UsersData::query()
@@ -36,9 +37,12 @@ class InvoiceController extends AbstractController
             $formData = $form->getData();
             $pdf->create($userData, $formData);
         }
+
+        $clientsList = $invoiceHelper->getClientsListForUser($this->getUser()->getId())->toArray();
         return $this->render('Invoice/generate.html.twig',[
             'settings' => array_merge(...$settings),
             'invoice_form' => $form->createView(),
+            'clientsList' => $clientsList,
         ]);
     }
 }
