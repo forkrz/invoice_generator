@@ -9,7 +9,7 @@
                 <select id="clientsListSelect">
                     <option selected disabled hidden>Select Client</option>
                     {% for client in clientsList %}
-                        <option data-nip="{{ client.NIP }}" data-company-name="{{ client.COMPANY_NAME }}" data-street="{{ client.STREET }}" data-zip-code="{{ client.ZIP_CODE }}" data-city="{{ client.EMAIL }}" data-email = "{{ client.EMAIL }}"> {{ client.COMPANY_NAME  }}</option>
+                        <option data-nip="{{ client.NIP }}" data-company-name="{{ client.COMPANY_NAME }}" data-street="{{ client.STREET }}" data-zip-code="{{ client.ZIP_CODE }}" data-city="{{ client.EMAIL }}" data-email = "{{ client.EMAIL }}" data-client-id="{{ client.ID }}"> {{ client.COMPANY_NAME  }}</option>
                     {% endfor %}
                 </select>
             </div>
