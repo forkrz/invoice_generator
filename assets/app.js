@@ -27,9 +27,12 @@ import IMask from 'imask';
 // var Zipmask = IMask(Zip, ZipmaskOptions);
 
 import {Clients} from "./js/Clients";
+import {Products} from "./js/Products";
 
 const clients = new Clients();
+const products = new Products();
 
 clients.showClientDataFromList();
 
+products.addNewProductInput();
 
