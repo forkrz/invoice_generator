@@ -3,13 +3,11 @@
 
 namespace App\Form;
 
-use App\Model\Products;
+use App\Model\Invoices;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProductsFormType extends AbstractType
 {
@@ -18,15 +16,20 @@ class ProductsFormType extends AbstractType
         $builder
             ->setMethod('POST')
             ->add('NAME', TextType::class)
-            ->add('PRICE', MoneyType::class)
-            ->add('Submit', SubmitType::class)
+            ->add('Quantity', TextType::class)
+            ->add('NET_PRICE', TextType::class)
+            ->add('TAX_RATE', TextType::class)
+            ->add('NET_VALUE', TextType::class)
+            ->add('VAT_VALUE', TextType::class)
+            ->add('GROSS_VALUE', TextType::class)
+            ->add('GROSS_VALUE', TextType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Products::class,
+            'data_class' => Invoices::class,
             'error_mapping' => []
         ]);
     }

@@ -31,11 +31,6 @@ class MoneyValidator extends ConstraintValidator
             return;
         }
 
-        if (!is_float($value)) {
-            throw new UnexpectedValueException($value, 'float');
-
-        }
-
         // access your configuration options like this:
         if ('strict' === $constraint->mode) {
             // ...

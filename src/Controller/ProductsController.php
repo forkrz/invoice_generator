@@ -25,7 +25,8 @@ Class ProductsController extends AbstractController
             $formData = $request->request->all()['products_form'];
             $products = new Products();
             $products->NAME = $formData['NAME'];
-            $products->PRICE = $formData['PRICE'];
+            $products->PRICE =(float) $formData['PRICE'];
+            $products->TAX_RATE = $formData['TAX_RATE'];
             $products->User_ID = $this->getuser()->getId();
             $products->save();
             $this->addFlash('success', 'Product has been created');

@@ -11,6 +11,7 @@ class Products extends Model
     public $casts = [
         'Name' => 'string',
         'NET_PRICE' => 'float',
+        'TAX_RATE' => 'float',
     ];
 
     /**
@@ -27,6 +28,14 @@ class Products extends Model
      */
     public function getPrice(){
         return $this->PRICE;
+    }
+
+    /**
+     * @Assert\NotBlank
+     * @CustomValidators\ProductsValidators\Money(mode="loose")
+     */
+    public function gettaxRate(){
+        return $this->TAX_RATE;
     }
 
     protected $primaryKey = 'id';

@@ -28,11 +28,12 @@ class Invoices extends Model
         'PRODUCT_ID' => 'integer',
         'TAX_RATE' => 'float',
         'NET_PRICE' => 'float',
-        'GROSS_UNIT_PRICE' => 'float',
         'PRODUCT_NAME' => 'string',
         'QUANTITY' => 'int',
         'INVOICE_NUMBER' => 'string',
-        'TOTAL_GROSS_PRICE' => 'float',
+        'NET_VALUE' => 'float',
+        'VAT_VALUE' => 'float',
+        'GROSS_VALUE' => 'float',
     ];
 
     /**
@@ -193,12 +194,6 @@ class Invoices extends Model
     {
         return $this->INVOICE_NUMBER;
     }
-
-    public function getTotalGrossPrice()
-    {
-        return $this->TOTAL_GROSS_PRICE;
-    }
-
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guarded = [];

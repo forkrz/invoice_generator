@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% dump(productList) %}
 {% block body %}
 
     <div class="wrapper"
@@ -101,87 +101,78 @@
             <div style="border: 1px solid #1221e1;width:90%;padding:0 4.9rem 0.5rem 4.9rem;">
                 <div style="display:flex;text-align:center;margin-top:0.5rem;margin-left: 0.5rem;justify-content:center;align-items:center;">
                     <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                        {{ form_widget(invoice_form.Product.DATE_OF_ISSUE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        {{ form_widget(invoice_form.DATE_OF_ISSUE, {'attr': {'style': 'display:block; text-align:center'}}) }}
                         <label class='form-label'>Creation Date</label>
                     </div>
 
                     <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                        {{ form_widget(invoice_form.Product.PAY_BY, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        {{ form_widget(invoice_form.PAY_BY, {'attr': {'style': 'display:block; text-align:center'}}) }}
                         <label class='form-label'>Paid to</label>
                     </div>
 
                     <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                        {{ form_widget(invoice_form.Product.REALISED_ON, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        {{ form_widget(invoice_form.REALISED_ON, {'attr': {'style': 'display:block; text-align:center'}}) }}
                         <label class='form-label'>Service Date</label>
                     </div>
                 </div>
             </div>
 
-            <div style="width: 100%;display:flex;justify-content:flex-end;margin:0.5rem 8rem 1rem 0">
-                <select>
-                    <option selected disabled hidden>Select Client</option>
-                </select>
-            </div>
+            <div id="products-list" style="width: 90%;display:flex;justify-content:center;flex-direction:column;margin-top:2rem">
 
-            <div style="width: 100%;display:flex;justify-content:center">
-                <h2 style="border-bottom:1px solid blue"> Products Data</h2>
-            </div>
-
-
-            <div id="products-list" style="width: 90%;display:flex;justify-content:center;flex-direction:column;">
-
-                <div style="width: 100%;display:flex;justify-content:flex-end;margin-right:8rem;margin-top: 0.5rem;margin-bottom: 0.5rem">
-                    <button id="add-product-button"> add product</button>
-                </div>
-                <div>
-                    <div style="border: 1px solid #1221e1;padding:0 4.9rem 0.5rem 4.9rem;" class="product-container">
-
-                        <div style="display:flex;text-align:center;margin-top:0.5rem;margin-left: 0.5rem;justify-content:center">
-
-                            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                                {{ form_widget(invoice_form.Product.PRODUCT_NAME, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                                <label class='form-label'>Product Name</label>
-                            </div>
-
-                            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                                {{ form_widget(invoice_form.Product.QUANTITY, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                                <label class='form-label'>Quantity</label>
-                            </div>
-
-                            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                                {{ form_widget(invoice_form.Product.NET_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                                <label class='form-label'>Net Price</label>
-                            </div>
-
-                            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                                <input>
-                                <label class='form-label'>Net value</label>
-                            </div>
-
-                            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                                {{ form_widget(invoice_form.Product.TAX_RATE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                                <label class='form-label'>Tax Rate</label>
-                            </div>
-
-                            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                                {{ form_widget(invoice_form.Product.GROSS_UNIT_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                                <label class='form-label'>Tax Value</label>
-                            </div>
-
-                            <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                                {{ form_widget(invoice_form.Product.TOTAL_GROSS_PRICE, {'attr': {'style': 'display:block; text-align:center'}}) }}
-                                <label class='form-label'>Total Gross Price</label>
-                            </div>
-                        </div>
+                <div style="width: 100%;display:flex;margin-right:8rem;margin-top: 0.5rem;margin-bottom: 0.5rem;justify-content: flex-end">
+                    <div style="width:50%;display:flex;justify-content: flex-end;margin-left: 15rem">
+                        <h2 style="border-bottom:1px solid blue;justify-self: center;"> Products Data</h2>
                     </div>
-                    <div style="width: 100%;display:flex;justify-content:flex-end;margin:0.5rem 8rem 1rem 0">
-                        <select>
-                            <option selected disabled hidden>Select Client</option>
+                    <div style="width:50%;display:flex;justify-content: flex-end">
+                        <button id="add-product-button" style="margin-bottom:0.5rem"> add product</button>
+                    </div>
+                </div>
+                <div class="product-container"
+                     data-index="{{ invoice_form.Product|length > 0 ? invoice_form.Product|last.vars.name + 1 : 0 }}">
+
+                    <div>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.NAME) }}
+                    <label class='form-label'>Product Name</label>
+                    </div>
+                    <div>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.Quantity) }}
+                    <label class='form-label'>Quantity</label>
+                    </div>
+                    <div>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_PRICE) }}
+                    <label class='form-label'>Net Price</label>
+                    </div>
+                    <div>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_RATE) }}
+                    <label class='form-label'>Tax Rate</label>
+                    </div>
+                    <div>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE) }}
+                    <label class='form-label'>Net Value</label>
+                    </div>
+                    <div>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.VAT_VALUE) }}
+                    <label class='form-label'>Vat Value</label>
+                    </div>
+                    <div>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE) }}
+                    <label class='form-label'>Gross Value</label>
+                    </div>
+                    <div>
+                        <select class="product-select">
+                            <option selected disabled hidden>Select Product</option>
+                            {% for product in productList %}
+                                <option data-name="{{ product.NAME }}"
+                                        data-price="{{ product.PRICE }}"
+                                        data-tax-rate="{{ product.TAX_RATE }}"
+                                        data-product-id="{{ product.ID }}">{{ product.NAME}} </option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
             </div>
-            <div style="width: 100%;display:flex;justify-content:center">
+            </div>
+            <div style="width: 100%;display:flex;justify-content:center;margin-top: 0.5rem;">
                 {{ form_widget(invoice_form.submit, {'attr': {'style': 'display:block; text-align:center','value':'generate'}}) }}
             </div>
         </div>
