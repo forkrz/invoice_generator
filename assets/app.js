@@ -35,4 +35,4 @@ const products = new Products();
 clients.showClientDataFromList();
 
 products.addNewProductInput();
-
+products.fillProductData(document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1]);

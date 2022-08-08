@@ -1,8 +1,42 @@
 body {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
-.test{
-    background-color: red;
+.product-container {
+  border: 1px solid #1221e1;
+  padding: 1rem 4.9rem 1rem 4.9rem;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > div {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+  >div:last-child {
+    margin-top: 0;
+    margin-bottom: 2.7rem;
+  }
+  > div:nth-child(5),
+  > div:nth-child(6),
+  > div:nth-child(7),
+  {
+    > input {
+      pointer-events: none;
+      background-color: #c5c3c3;
+    }
+  }
+
+  .product-list{
+    > div{
+        display:flex;
+        justify-content:center;
+        flex-direction:row;
+        align-items:center;
+    }
+  }
 }
+
 @import "~bootstrap/scss/bootstrap";

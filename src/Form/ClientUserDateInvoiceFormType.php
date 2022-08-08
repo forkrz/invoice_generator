@@ -6,13 +6,12 @@ namespace App\Form;
 use App\Model\Invoices;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ClientUserDataInvoiceFormType extends AbstractType
+class ClientUserDateInvoiceFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,7 +31,13 @@ class ClientUserDataInvoiceFormType extends AbstractType
             ->add('CLIENT_ZIP_CODE', TextType::class)
             ->add('CLIENT_CITY', TextType::class)
             ->add('CLIENT_EMAIL', TextType::class)
-            ->add('Product', ProductsInvoiceFormType::class)
+            ->add('DATE_OF_ISSUE', TextType::class)
+            ->add('PAY_BY', TextType::class)
+            ->add('REALISED_ON', TextType::class)
+            ->add('Product', CollectionType::class, [
+                'entry_type' => ProductsFormType::class,
+                'entry_options' => ['label' => true],
+                'allow_add' => true])
             ->add('submit', SubmitType::class);
     }
 

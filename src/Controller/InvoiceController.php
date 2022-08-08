@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Form\ProductsInvoiceFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\ClientUserDataInvoiceFormType;
+use App\Form\ClientUserDateInvoiceFormType;
 use App\Model\Invoices;
 use App\Model\UsersData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,8 +29,12 @@ class InvoiceController extends AbstractController
             ->toArray();
 
         $invoice = new Invoices();
-        $form = $this->createForm(ClientUserDataInvoiceFormType::class,$invoice);
+        $form = $this->createForm(ClientUserDateInvoiceFormType::class,$invoice);
         $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            dd($form->getData());
+        }
 
         if($form->isSubmitted() && $form->isValid()){
             $userData = $entityManager->getRepository(Users::class)->find($this->getUser());
@@ -39,10 +43,12 @@ class InvoiceController extends AbstractController
         }
 
         $clientsList = $invoiceHelper->getClientsListForUser($this->getUser()->getId())->toArray();
+        $productList = $invoiceHelper->getProductsListForUser($this->getUser()->getId())->toArray();
         return $this->render('Invoice/generate.html.twig',[
             'settings' => array_merge(...$settings),
             'invoice_form' => $form->createView(),
             'clientsList' => $clientsList,
+            'productList' => $productList,
         ]);
     }
 }
