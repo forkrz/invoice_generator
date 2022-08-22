@@ -1,7 +1,12 @@
+import {Masks} from "./Masks";
+
+const mask = new Masks();
+
 export class Clients {
+
     showClientDataFromList() {
         const clientsList = document.getElementById("clientsListSelect");
-        clientsList.addEventListener('change', ()=>{
+        clientsList.addEventListener('change', () => {
             let selectedClient = clientsList.options[clientsList.selectedIndex];
             let clientData = {
                 'nip': selectedClient.getAttribute('data-nip'),
@@ -15,11 +20,17 @@ export class Clients {
         })
     }
 
-    fillClientsData(clientData){
-    const ClientsData = document.getElementById('clientsListData');
-    const dataContainers =ClientsData.querySelectorAll('div');
-        dataContainers.forEach(function(el, index){
-        el.querySelector('input').value = Object.values(clientData)[index];
-    })
+    fillClientsData(clientData) {
+        const ClientsData = document.getElementById('clientsListData');
+        const dataContainers = ClientsData.querySelectorAll('div');
+        dataContainers.forEach(function (el, index) {
+            el.querySelector('input').value = Object.values(clientData)[index];
+        })
     }
+
+    loadMasks() {
+        mask.nipMask('client_user_date_invoice_form_USER_NIP');
+        mask.zipCodeMask('client_user_date_invoice_form_USER_ZIP_CODE');
+    }
+
 }

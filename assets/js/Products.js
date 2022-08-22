@@ -1,18 +1,22 @@
-export class Products{
+import {Masks} from "./Masks";
 
-    addNewProductInput(){
+const mask = new Masks();
+
+export class Products {
+
+    addNewProductInput() {
         const productsList = document.getElementById('products-list');
         const inputDiv = productsList.getElementsByTagName('div')[3];
         const addProductButton = document.getElementById('add-product-button');
-        addProductButton.addEventListener('click',(e) =>{
+        addProductButton.addEventListener('click', (e) => {
             e.preventDefault();
             const lastDiv = Array.from(productsList.querySelectorAll('.product-container')).pop();
             let NewProductInput = inputDiv.cloneNode(true);
             const currentIndex = parseInt(lastDiv.dataset.index);
             NewProductInput.dataset.index = currentIndex + 1;
 
-            NewProductInput.querySelectorAll('div').forEach((el) =>{
-                el.id = el.id.replace('__name__', currentIndex +1);
+            NewProductInput.querySelectorAll('div').forEach((el) => {
+                el.id = el.id.replace('__name__', currentIndex + 1);
                 el.querySelectorAll('input').forEach((elChild) => {
                     elChild.id = elChild.id.replace('__name__', currentIndex + 1);
                     elChild.name = elChild.name.replace('__name__', currentIndex + 1);
@@ -41,5 +45,10 @@ export class Products{
             inputLists[2].querySelector('input').value = productData.price;
             inputLists[3].querySelector('input').value = productData.tax;
         })
+    }
+
+    loadMasks() {
+        mask.nipMask('client_user_date_invoice_form_CLIENT_NIP');
+        mask.zipCodeMask('client_user_date_invoice_form_CLIENT_ZIP_CODE');
     }
 }

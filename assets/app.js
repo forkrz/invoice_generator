@@ -11,28 +11,22 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-import IMask from 'imask';
-
-// var Nip = document.getElementById('NIP');
-// var NipmaskOptions = {
-//     mask: '00000000000'
-// };
-//
-// var Zip = document.getElementById('ZIP');
-// var ZipmaskOptions = {
-//     mask: '00-000'
-// };
-//
-// var Nipmask = IMask(Nip, NipmaskOptions);
-// var Zipmask = IMask(Zip, ZipmaskOptions);
 
 import {Clients} from "./js/Clients";
 import {Products} from "./js/Products";
+import {Dates} from "./js/Dates";
 
 const clients = new Clients();
 const products = new Products();
+const dates = new Dates();
+
 
 clients.showClientDataFromList();
+clients.loadMasks();
 
 products.addNewProductInput();
-products.fillProductData(document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1]);
+products.loadMasks();
+
+dates.loadMasks();
+
+// products.fillProductData(document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1]);
