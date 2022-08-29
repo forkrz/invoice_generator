@@ -1,6 +1,4 @@
-import {Masks} from "./Masks";
-
-const mask = new Masks();
+import IMask from "imask";
 
 export class Products {
 
@@ -25,11 +23,24 @@ export class Products {
             });
 
             productsList.append(NewProductInput);
-            this.fillProductData(document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1]);
+            const productContainer = document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1];
+            let inputLists = productContainer.parentNode.parentNode.querySelectorAll('div');
+            let netPriceMask = IMask(
+                inputLists[1].querySelector('input'),
+                {
+                    mask: '00000.00'
+                });
+            let taxRateMask = IMask(
+                inputLists[3].querySelector('input'),
+                {
+                    mask: '00'
+                });
+            this.fillProductData(productContainer, netPriceMask, taxRateMask);
+            this.calculateNetValue(inputLists[1].querySelector('input'),inputLists[2].querySelector('input'),inputLists[4].querySelector('input'))
         })
     }
 
-    fillProductData(el) {
+    fillProductData(el, netPriceMask, taxRateMask) {
         el.addEventListener('change', (e) => {
             e.preventDefault();
             let selectedProduct = el.options[el.selectedIndex];
@@ -38,17 +49,36 @@ export class Products {
                 'price': selectedProduct.getAttribute('data-price'),
                 'tax': selectedProduct.getAttribute('data-tax-rate'),
             }
-
             const productContainer = el.parentNode.parentNode;
             const inputLists = productContainer.querySelectorAll('div');
             inputLists[0].querySelector('input').value = productData.name;
             inputLists[2].querySelector('input').value = productData.price;
             inputLists[3].querySelector('input').value = productData.tax;
+            netPriceMask.updateValue();
+            taxRateMask.updateValue();
         })
     }
 
-    loadMasks() {
-        mask.nipMask('client_user_date_invoice_form_CLIENT_NIP');
-        mask.zipCodeMask('client_user_date_invoice_form_CLIENT_ZIP_CODE');
+    calculateNetValue(quantity, netPrice, netValue) {
+        let calculate = () => {
+            let quantityVal = quantity.value;
+            let netPriceVal = netPrice.value;
+            if(quantityVal && netPriceVal) {
+                quantityVal = parseInt(quantityVal);
+                netPriceVal = parseFloat(netPriceVal);
+                if(quantityVal !== 0 && netPriceVal !== 0) {
+                    netValue.value = quantityVal * netPriceVal;
+                } else {
+                    netValue.value = '';
+                }
+            }
+        }
+        quantity.addEventListener('change', () => {
+            calculate();
+        })
+        netPrice.addEventListener('change', () => {
+            calculate();
+        })
     }
+
 }

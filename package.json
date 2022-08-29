@@ -21,6 +21,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "dayjs": "^1.11.5",
         "imask": "^6.4.2",
         "string-mask": "^0.3.0"
     }

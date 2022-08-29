@@ -1,7 +1,3 @@
-import {Masks} from "./Masks";
-
-const mask = new Masks();
-
 export class Clients {
 
     showClientDataFromList() {
@@ -27,10 +23,4 @@ export class Clients {
             el.querySelector('input').value = Object.values(clientData)[index];
         })
     }
-
-    loadMasks() {
-        mask.nipMask('client_user_date_invoice_form_USER_NIP');
-        mask.zipCodeMask('client_user_date_invoice_form_USER_ZIP_CODE');
-    }
-
 }

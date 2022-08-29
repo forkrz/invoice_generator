@@ -11,7 +11,7 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-
+import {userMasks, clientMasks, firstProductMask} from "./js/Masks";
 import {Clients} from "./js/Clients";
 import {Products} from "./js/Products";
 import {Dates} from "./js/Dates";
@@ -22,11 +22,7 @@ const dates = new Dates();
 
 
 clients.showClientDataFromList();
-clients.loadMasks();
-
 products.addNewProductInput();
-products.loadMasks();
-
-dates.loadMasks();
-
+products.calculateNetValue(document.getElementById('client_user_date_invoice_form_Product___name___Quantity'), document.getElementById('client_user_date_invoice_form_Product___name___NET_PRICE'), document.getElementById('client_user_date_invoice_form_Product___name___NET_VALUE'));
+dates.setDefaultMasks();
 // products.fillProductData(document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1]);
