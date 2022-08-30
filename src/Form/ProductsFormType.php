@@ -20,7 +20,7 @@ class ProductsFormType extends AbstractType
             ->add('NET_PRICE', TextType::class)
             ->add('TAX_RATE', TextType::class)
             ->add('NET_VALUE', TextType::class)
-            ->add('VAT_VALUE', TextType::class)
+            ->add('TAX_VALUE', TextType::class)
             ->add('GROSS_VALUE', TextType::class)
             ->add('GROSS_VALUE', TextType::class)
         ;

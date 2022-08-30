@@ -3,7 +3,7 @@ import IMask from 'imask';
 export let userMasks = {};
 export let clientMasks = {};
 export let dateMasks = {};
-export let firstProductMask = {};
+
 userMasks.userNipMask = IMask(
     document.getElementById('client_user_date_invoice_form_USER_NIP'),
     {
@@ -52,16 +52,4 @@ dateMasks.serviceDateMask = IMask(
         min: new Date(new Date().getFullYear(), 0, 1),
         max: new Date(9999, 0, 1),
         lazy: false
-    });
-
-firstProductMask.netPriceMask = IMask(
-    document.getElementById('client_user_date_invoice_form_Product___name___NET_PRICE'),
-    {
-        mask: '00000.00'
-    });
-
-firstProductMask.taxRateMask = IMask(
-    document.getElementById('client_user_date_invoice_form_Product___name___TAX_RATE'),
-    {
-        mask: '00'
     });

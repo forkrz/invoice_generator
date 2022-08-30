@@ -32,7 +32,7 @@ class Invoices extends Model
         'QUANTITY' => 'int',
         'INVOICE_NUMBER' => 'string',
         'NET_VALUE' => 'float',
-        'VAT_VALUE' => 'float',
+        'TAX_VALUE' => 'float',
         'GROSS_VALUE' => 'float',
     ];
 

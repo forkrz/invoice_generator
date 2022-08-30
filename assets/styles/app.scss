@@ -9,16 +9,19 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   > div {
     margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    }
-  >div:last-child {
+  }
+
+  > div:last-child {
     margin-top: 0;
     margin-bottom: 2.7rem;
   }
+
   > div:nth-child(5),
   > div:nth-child(6),
   > div:nth-child(7),
@@ -29,14 +32,16 @@ body {
     }
   }
 
-  .product-list{
-    > div{
-        display:flex;
-        justify-content:center;
-        flex-direction:row;
-        align-items:center;
+  .product-list {
+    > div {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
     }
   }
 }
-
+ .error {
+   border: 1px solid red !important;
+ }
 @import "~bootstrap/scss/bootstrap";
