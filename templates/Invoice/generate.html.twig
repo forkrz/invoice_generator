@@ -146,15 +146,15 @@
                     <label class='form-label'>Tax Rate</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE) }}
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
                     <label class='form-label'>Net Value</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE) }}
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
                     <label class='form-label'>tax Value</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE) }}
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}})  }}
                     <label class='form-label'>Gross Value</label>
                     </div>
                     <div>
