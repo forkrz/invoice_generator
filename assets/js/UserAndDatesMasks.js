@@ -7,22 +7,11 @@ export let dateMasks = {};
 userMasks.userNipMask = IMask(
     document.getElementById('client_user_date_invoice_form_USER_NIP'),
     {
-        mask: '00000000000',
-    });
-clientMasks.clientNipMask = IMask(
-    document.getElementById('client_user_date_invoice_form_CLIENT_NIP'),
-    {
-        mask: '00000000000',
+        mask: '0000000000',
     });
 
 userMasks.userZipCodeMask = IMask(
     document.getElementById('client_user_date_invoice_form_USER_ZIP_CODE'),
-    {
-        mask: '00-000'
-    });
-
-clientMasks.clientZipCodeMask = IMask(
-    document.getElementById('client_user_date_invoice_form_CLIENT_ZIP_CODE'),
     {
         mask: '00-000'
     });

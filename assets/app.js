@@ -11,7 +11,7 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-// import {userMasks, clientMasks} from "./js/Masks";
+
 import {Clients} from "./js/Clients";
 import {Products} from "./js/Products";
 import {Dates} from "./js/Dates";

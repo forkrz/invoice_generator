@@ -2,10 +2,10 @@ export class Validators {
     init() {
         document.forms[0].addEventListener('submit', (e) => {
             e.preventDefault();
-            this.checkNips();
-            this.checkZipCodes();
+            if(this.checkNips() && this.checkZipCodes() && this.productsCheck()){
+                e.currentTarget.submit();
+            }
         });
-        this.productsCheck();
     }
 
     checkNips() {
@@ -38,23 +38,53 @@ export class Validators {
         const clientZipCode = document.getElementById('client_user_date_invoice_form_CLIENT_ZIP_CODE');
         const userZipCodeCheck = regex.test(userZipCode.value);
         const clientZipCodeCheck = regex.test(clientZipCode.value);
-
         userZipCodeCheck ? userZipCode.classList.remove('error') : userZipCode.classList.add('error');
         clientZipCodeCheck ? clientZipCode.classList.remove('error') : clientZipCode.classList.add('error');
-
+        return (userZipCodeCheck && clientZipCodeCheck);
     }
 
     productsCheck() {
         let productList = document.querySelectorAll('.product-container');
-        productList.forEach(el => this.checkProductData(el))
+        const checks = []
+        productList.forEach(el => checks.push(this.checkProductData(el)));
+        return !checks.includes(false);
     }
-    checkProductData(el){
-        el.childNodes.forEach(el => {
-            el.childNodes.forEach(el => {
-                if(el.tagName === 'INPUT'){
 
-                };
-            });
-        })
+    checkProductData(el) {
+        const productData = el.getElementsByTagName('INPUT');
+        const checks = [
+            this.checkProductName(productData[0]),
+            //quantity
+            this.checkIfInputGreaterThanZero(productData[1]),
+            //net price
+            this.checkIfInputGreaterThanZero(productData[2]),
+            //tax rate
+            this.checkIfInputGreaterThanZero(productData[3]),
+            //net value
+            this.checkIfInputGreaterThanZero(productData[4]),
+        ]
+        return !checks.includes(false);
+
     }
+
+    checkProductName(el) {
+        if (el.value !== '') {
+            el.classList.remove('error');
+            return true;
+        } else {
+            el.classList.add('error');
+            return false;
+        }
+    }
+
+    checkIfInputGreaterThanZero(el) {
+        if (el.value !== '' || el.value > 0) {
+            el.classList.remove('error');
+            return true;
+        } else {
+            el.classList.add('error');
+            return false;
+        }
+    }
+
 }
