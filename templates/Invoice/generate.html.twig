@@ -146,19 +146,19 @@
                     <label class='form-label'>Tax Rate</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE) }}
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
                     <label class='form-label'>Net Value</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.VAT_VALUE) }}
-                    <label class='form-label'>Vat Value</label>
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
+                    <label class='form-label'>tax Value</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE) }}
+                    {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}})  }}
                     <label class='form-label'>Gross Value</label>
                     </div>
                     <div>
-                        <select class="product-select">
+                        <select class="form-select product-select">
                             <option selected disabled hidden>Select Product</option>
                             {% for product in productList %}
                                 <option data-name="{{ product.NAME }}"
@@ -167,6 +167,9 @@
                                         data-product-id="{{ product.ID }}">{{ product.NAME}} </option>
                             {% endfor %}
                         </select>
+                    </div>
+                    <div>
+                    <i class="fa-solid fa-xmark delete-product-icon"></i>
                     </div>
                 </div>
             </div>

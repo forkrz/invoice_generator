@@ -1,5 +1,6 @@
 {
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^6.2.0",
         "@hotwired/stimulus": "^3.0.0",
         "@popperjs/core": "^2.11.5",
         "@symfony/stimulus-bridge": "^3.0.0",
@@ -21,6 +22,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "dayjs": "^1.11.5",
         "imask": "^6.4.2",
         "string-mask": "^0.3.0"
     }

@@ -1,30 +1,14 @@
-import {Masks} from "./Masks";
-
-const mask = new Masks();
+import {dateMasks} from "./UserAndDatesMasks";
+import dayjs from "dayjs";
 
 export class Dates {
-
-    loadMasks() {
-        const today = new Date();
-        document.getElementById('client_user_date_invoice_form_DATE_OF_ISSUE').value = this.getDateInMaskFormat();
-        document.getElementById('client_user_date_invoice_form_PAY_BY').value = this.getDateInMaskFormat(7);
-        document.getElementById('client_user_date_invoice_form_REALISED_ON').value = this.getDateInMaskFormat();
-
-        mask.dateMask('client_user_date_invoice_form_DATE_OF_ISSUE').updateValue();
-        mask.dateMask('client_user_date_invoice_form_PAY_BY').updateValue();
-        mask.dateMask('client_user_date_invoice_form_REALISED_ON').updateValue();
+    setDefaultMasks() {
+        const today = dayjs();
+        document.getElementById('client_user_date_invoice_form_DATE_OF_ISSUE').value = today.format('DD.MM.YYYY');
+        document.getElementById('client_user_date_invoice_form_PAY_BY').value = today.add(7, 'day').format('DD.MM.YYYY');
+        document.getElementById('client_user_date_invoice_form_REALISED_ON').value = today.format('DD.MM.YYYY');
+        dateMasks.creationDateMask.updateValue();
+        dateMasks.paidToMask.updateValue();
+        dateMasks.serviceDateMask.updateValue();
     }
-
-    getDateInMaskFormat(daysAhead = 0) {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        let mm = today.getMonth() + 1; // Months start at 0!
-        let dd = today.getDate() + daysAhead;
-
-        if (dd < 10) dd = '0' + dd;
-        if (mm < 10) mm = '0' + mm;
-
-        return dd + '.' + mm + '.' + yyyy;
-    }
-
 }

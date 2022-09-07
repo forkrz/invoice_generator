@@ -9,16 +9,21 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   > div {
     margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    }
-  >div:last-child {
-    margin-top: 0;
-    margin-bottom: 2.7rem;
   }
+
+  > div:nth-child(8),
+  > div:last-child
+  {
+    margin-top: 0;
+    margin-bottom: 1.6rem;
+  }
+
   > div:nth-child(5),
   > div:nth-child(6),
   > div:nth-child(7),
@@ -29,14 +34,30 @@ body {
     }
   }
 
-  .product-list{
-    > div{
-        display:flex;
-        justify-content:center;
-        flex-direction:row;
-        align-items:center;
+  .product-list {
+    > div {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
     }
   }
 }
+ .error {
+   border: 1px solid red !important;
+ }
+
+.fa-xmark.fa-solid.delete-product-icon {
+  font-size: 40px;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: none;
+}
+
 
 @import "~bootstrap/scss/bootstrap";
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
