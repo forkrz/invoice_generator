@@ -28,7 +28,8 @@
                     <tr>
                         <th scope="row"> {{ loop.index }} </th>
                         <td> {{ productData.NAME }}  </td>
-                        <td> {{ productData.PRICE }} </td>
+                        <td> {{ productData.NET_PRICE }} </td>
+                        <td> {{ productData.TAX_RATE }} </td>
                         <td> <a href="{{ path('update_product', {'id': productData.ID}) }}">Edit</a></td>
                         <td> <a href="{{ path('delete_product', {'id': productData.ID}) }}">Delete</a></td>
                     </tr>

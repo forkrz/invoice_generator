@@ -3,7 +3,7 @@
 
 namespace App\Form;
 
-use App\Model\Invoices;
+use App\Model\InvoicesTotal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,16 +35,18 @@ class ClientUserDateInvoiceFormType extends AbstractType
             ->add('PAY_BY', TextType::class)
             ->add('REALISED_ON', TextType::class)
             ->add('Product', CollectionType::class, [
-                'entry_type' => ProductsFormType::class,
-                'entry_options' => ['label' => true],
-                'allow_add' => true])
+                'data_class' => InvoicesTotal::class,
+                'label' => false,
+                'entry_type' => ProductsInvoiceFormType::class,
+                'allow_add' => true,
+                ])
             ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Invoices::class,
+            'data_class' => InvoicesTotal::class,
             'error_mapping' => []
         ]);
     }

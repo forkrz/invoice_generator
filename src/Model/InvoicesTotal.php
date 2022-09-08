@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator as CustomValidators;
 
-class Invoices extends Model
+class InvoicesTotal extends Model
 {
     public $casts = [
         'USER_ID' => 'integer',
@@ -25,11 +25,7 @@ class Invoices extends Model
         'DATE_OF_ISSUE' => 'date:Y-m-d',
         'PAY_BY' => 'date:Y-m-d',
         'REALISED_ON' => 'date:Y-m-d',
-        'PRODUCT_ID' => 'integer',
-        'TAX_RATE' => 'float',
         'NET_PRICE' => 'float',
-        'PRODUCT_NAME' => 'string',
-        'QUANTITY' => 'int',
         'INVOICE_NUMBER' => 'string',
         'NET_VALUE' => 'float',
         'TAX_VALUE' => 'float',
@@ -100,7 +96,7 @@ class Invoices extends Model
      *     minMessage = "Nip number must be exactly {{ limit }} characters long",
      *     maxMessage = "Nip number must be exactly {{ limit }} characters long",
      * )
-     * @CustomValidators\ClientsUsersValidators\Nip(mode="client")
+     * @CustomValidators\ClientsUsersValidators\Nip(mode="invoice")
      */
     public function getClientNip()
     {
@@ -109,7 +105,7 @@ class Invoices extends Model
 
     /**
      * @Assert\NotBlank
-     * @CustomValidators\ClientsUsersValidators\ClientName(mode="client")
+     * @CustomValidators\ClientsUsersValidators\ClientName(mode="invoice")
      */
     public function getClientName()
     {
@@ -165,11 +161,6 @@ class Invoices extends Model
     return $this->REALISED_ON;
     }
 
-    public function getTaxRate()
-    {
-        return $this->TAX_RATE;
-    }
-
     public function getNetPrice()
     {
         return $this->NET_PRICE;
@@ -178,16 +169,6 @@ class Invoices extends Model
     public function getGrossUnitPrice()
     {
         return $this->GROSS_UNIT_PRICE;
-    }
-
-    public function getProductName()
-    {
-        return $this->PRODUCT_NAME;
-    }
-
-    public function getQuantity()
-    {
-        return $this->QUANTITY;
     }
 
     public function getInvoiceNumber()
