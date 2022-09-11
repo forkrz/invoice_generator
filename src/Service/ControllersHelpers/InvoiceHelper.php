@@ -54,9 +54,9 @@ class InvoiceHelper
         $result['client_zip_code'] = $formData->CLIENT_ZIP_CODE;
         $result['client_city'] = $formData->CLIENT_CITY;
         $result['client_email'] = $formData->CLIENT_EMAIL;
-        $result['date_of_issue'] = $formData->DATE_OF_ISSUE;
-        $result['pay_by'] = $formData->PAY_BY;
-        $result['realised_on'] = $formData->REALISED_ON;
+        $result['date_of_issue'] = $formData->DATE_OF_ISSUE->format('Y-m-d');
+        $result['pay_by'] = $formData->PAY_BY->format('Y-m-d');
+        $result['realised_on'] = $formData->REALISED_ON->format('Y-m-d');
         $result['net_value'] = $totalNetValue;
         $result['vat_value'] = $totalTaxValue;
         $result['gross_value'] = $totalGrossValue;
@@ -94,8 +94,8 @@ class InvoiceHelper
                 $productData = $userProducts->where('NAME',$el['NAME']);
                 !$productData->isEmpty() ? $productId =  $productData->first()->ID : '';
             }
-            $netValue = $el['NET_PRICE'] * $el['QUANTITY'];
-            $taxValue = $el['NET_PRICE'] * $el['QUANTITY'] * $el['TAX_RATE'] / 100;
+            $netValue = $el['NET_PRICE'] * $el['Quantity'];
+            $taxValue = $el['NET_PRICE'] * $el['Quantity'] * $el['TAX_RATE'] / 100;
             $grossValue = $netValue + $taxValue;
 
             return[
