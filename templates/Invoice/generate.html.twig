@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-    <div class="wrapper"
-         style="display:flex; flex-direction: row; padding-top: 3rem; flex-wrap: wrap; justify-content:center;">
+    <div class="wrapper">
         {{ form_start(invoice_form, {'method': 'POST'}) }}
-        <div class="wrapper"
-             style="display:flex; flex-direction: row; width:100vw; flex-wrap: wrap; justify-content:center">
-            <div style="width: 100%;display:flex;justify-content:flex-end;margin-bottom:0.5rem;margin-right: 8rem">
-                <select id="clientsListSelect">
+        <div class="wrapper__form">
+            <div class="form__select_client_list">
+                <select id="clientsListSelect" class="form-select">
                     <option selected disabled hidden>Select Client</option>
                     {% for client in clientsList %}
                         <option data-nip="{{ client.NIP }}" data-company-name="{{ client.COMPANY_NAME }}"
@@ -18,75 +16,72 @@
                 </select>
             </div>
 
-            <div style="width: 100%;display: flex;justify-content:space-around">
-                <div style="border: 1px solid #1221e1;width:40%;display:flex;flex-direction:column;"
-                     id="users_data">
-                    <h2 style="border-bottom:1px solid blue"> User Data</h2>
-                    <div style="display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;margin-top:0.5rem">
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.USER_NIP, {'attr': {'style': 'display:block; text-align:center','value': settings.NIP|default('')}}) }}
+            <div class="form__user_and_client_data_container">
+                <div class="user_and_client_data_container__user_container" id="users_data">
+                    <h2> User</h2>
+                    <div class="user_container__user_data">
+                        <div class="user_data__user_inputs">
+                            {{ form_widget(invoice_form.USER_NIP, {'attr': {'class':  'create_invoice_inputs','value': settings.NIP|default('')}}) }}
                             <label class='form-label'>NIP</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.USER_NAME, {'attr': {'style': 'display:block; text-align:center','value': settings.NAME|default('')}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_NAME, {'attr': {'class':  'create_invoice_inputs','value': settings.NAME|default('')}}) }}
                             <label class='form-label'>Name</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.USER_STREET, {'attr': {'style': 'display:block; text-align:center','value': settings.STREET|default('')}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_STREET, {'attr': {'class':  'create_invoice_inputs','value': settings.STREET|default('')}}) }}
                             <label class='form-label'>Street</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.USER_ZIP_CODE, {'attr': {'style': 'display:block; text-align:center','value': settings.ZIP_CODE|default('')}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_ZIP_CODE, {'attr': {'class':  'create_invoice_inputs','value': settings.ZIP_CODE|default('')}}) }}
                             <label class='form-label'>Zip-Code</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.USER_CITY, {'attr': {'style': 'display:block; text-align:center','value': settings.CITY|default('')}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_CITY, {'attr': {'class':  'create_invoice_inputs','value': settings.CITY|default('')}}) }}
                             <label class='form-label'>City</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.USER_EMAIL, {'attr': {'style': 'display:block; text-align:center','value': settings.EMAIL|default('')}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_EMAIL, {'attr': {'class':  'create_invoice_inputs','value': settings.EMAIL|default('')}}) }}
                             <label class='form-label'>Email</label>
                         </div>
                     </div>
-
                 </div>
 
-                <div style="border: 1px solid #1221e1;width:40%;">
-                    <h2 style="border-bottom:1px solid blue"> Clients Data</h2>
-                    <div style="display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;margin-top:0.5rem"
-                         id="clientsListData">
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.CLIENT_NIP, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                <div class="user_and_client_data_container__client_container">
+                    <h2> Client</h2>
+                    <div class="user_container__client_data" id="clientsListData">
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_NIP, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>NIP</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.CLIENT_NAME, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_NAME, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Name</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.CLIENT_STREET, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_STREET, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Street</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.CLIENT_ZIP_CODE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_ZIP_CODE, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Zip-Code</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.CLIENT_CITY, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_CITY, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>City</label>
                         </div>
 
-                        <div style="display: flex;margin-top: 0.3rem;flex-direction:column">
-                            {{ form_widget(invoice_form.CLIENT_EMAIL, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_EMAIL, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Email</label>
                         </div>
 
@@ -94,91 +89,90 @@
                 </div>
             </div>
 
-            <div style="width:100%;display:flex; justify-content:center; padding-top:1rem">
-                <h2 style="border-bottom:1px solid blue;text-align:center"> Dates Data</h2>
+            <div class="form__dates_header">
+                <h2> Dates</h2>
             </div>
-            <div style="border: 1px solid #1221e1;width:90%;padding:0 4.9rem 0.5rem 4.9rem;">
-                <div style="display:flex;text-align:center;margin-top:0.5rem;margin-left: 0.5rem;justify-content:center;align-items:center;">
-                    <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                        {{ form_widget(invoice_form.DATE_OF_ISSUE, {'attr': {'style': 'display:block; text-align:center'}}) }}
+            <div class="form__dates_container">
+                <div class="dates_container__dates_inputs">
+                    <div class="dates_inputs__input_containers">
+                        {{ form_widget(invoice_form.DATE_OF_ISSUE, {'attr': {'class':  'create_invoice_inputs'}}) }}
                         <label class='form-label'>Creation Date</label>
                     </div>
 
-                    <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                        {{ form_widget(invoice_form.PAY_BY, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                    <div class="dates_inputs__input_containers">
+                        {{ form_widget(invoice_form.PAY_BY, {'attr': {'class':  'create_invoice_inputs'}}) }}
                         <label class='form-label'>Paid to</label>
                     </div>
 
-                    <div style="display: flex;margin-top: 0.3rem;flex-direction:column;margin-left: 1rem">
-                        {{ form_widget(invoice_form.REALISED_ON, {'attr': {'style': 'display:block; text-align:center'}}) }}
+                    <div class="dates_inputs__input_containers">
+                        {{ form_widget(invoice_form.REALISED_ON, {'attr': {'class':  'create_invoice_inputs'}}) }}
                         <label class='form-label'>Service Date</label>
                     </div>
                 </div>
             </div>
 
-            <div id="products-list" style="width: 90%;display:flex;justify-content:center;flex-direction:column;margin-top:2rem">
-
-                <div style="width: 100%;display:flex;margin-right:8rem;margin-top: 0.5rem;margin-bottom: 0.5rem;justify-content: flex-end">
-                    <div style="width:50%;display:flex;justify-content: flex-end;margin-left: 15rem">
-                        <h2 style="border-bottom:1px solid blue;justify-self: center;"> Products Data</h2>
+            <div id="products-list" class="form__products_list">
+                <div  class="products_list__header_button">
+                    <div class="header_select__header_container">
+                        <h2> Products</h2>
                     </div>
-                    <div style="width:50%;display:flex;justify-content: flex-end">
-                        <button id="add-product-button" style="margin-bottom:0.5rem"> add product</button>
+                    <div class="header_button__button_container">
+                        <button id="add-product-button" class="btn btn-primary"> add product</button>
                     </div>
                 </div>
                 <div class="product-container"
                      data-index="{{ invoice_form.Product|length > 0 ? invoice_form.Product|last.vars.name + 1 : 0 }}">
 
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.NAME) }}
-                    <label class='form-label'>Product Name</label>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.NAME) }}
+                        <label class='form-label'>Product Name</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.Quantity) }}
-                    <label class='form-label'>Quantity</label>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.Quantity) }}
+                        <label class='form-label'>Quantity</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_PRICE) }}
-                    <label class='form-label'>Net Price</label>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.NET_PRICE) }}
+                        <label class='form-label'>Net Price</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_RATE) }}
-                    <label class='form-label'>Tax Rate</label>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_RATE) }}
+                        <label class='form-label'>Tax Rate</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
-                    <label class='form-label'>Net Value</label>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
+                        <label class='form-label'>Net Value</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
-                    <label class='form-label'>tax Value</label>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
+                        <label class='form-label'>tax Value</label>
                     </div>
                     <div>
-                    {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}})  }}
-                    <label class='form-label'>Gross Value</label>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}}) }}
+                        <label class='form-label'>Gross Value</label>
                     </div>
                     <div>
-                        <select class="form-select product-select">
+                        <select class="form-select product-select" class="form-select">
                             <option selected disabled hidden>Select Product</option>
                             {% for product in productList %}
                                 <option data-name="{{ product.NAME }}"
                                         data-price="{{ product.PRICE }}"
                                         data-tax-rate="{{ product.TAX_RATE }}"
-                                        data-product-id="{{ product.ID }}">{{ product.NAME}} </option>
+                                        data-product-id="{{ product.ID }}">{{ product.NAME }} </option>
                             {% endfor %}
                         </select>
                     </div>
                     <div>
-                    <i class="fa-solid fa-xmark delete-product-icon"></i>
+                        <i class="fa-solid fa-xmark delete-product-icon"></i>
                     </div>
                 </div>
             </div>
-            </div>
-            <div style="width: 100%;display:flex;justify-content:center;margin-top: 0.5rem;">
-                {{ form_widget(invoice_form.submit, {'attr': {'style': 'display:block; text-align:center','value':'generate'}}) }}
-            </div>
         </div>
-        {{ form_end(invoice_form) }}
+        <div  class="form__submit_container">
+            {{ form_widget(invoice_form.submit, {'attr': {'value':'generate'}}) }}
+        </div>
+    </div>
+    {{ form_end(invoice_form) }}
     </div>
 
 
