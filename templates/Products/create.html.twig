@@ -21,8 +21,8 @@
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    {{ form_widget(products_form.PRICE, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
-                                    {{ form_label(products_form.PRICE,null, {'label': 'Price', 'label_attr': {'class': 'form-label'}}) }}
+                                    {{ form_widget(products_form.NET_PRICE, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+                                    {{ form_label(products_form.NET_PRICE,null, {'label': 'Price', 'label_attr': {'class': 'form-label'}}) }}
                                     {%  if errors.price is defined %}
                                         <div style="color: red">{{  errors.price }}</div>
                                     {% endif %}
@@ -36,7 +36,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    {{ form_row(products_form.Submit, {'attr': {'class': 'btn btn-success btn-block btn-lg gradient-custom-4 text-body' }}) }}
+                                    {{ form_row(products_form.Create, {'attr': {'class': 'btn btn-success btn-block btn-lg gradient-custom-4 text-body' }}) }}
                                 </div>
 
                                 {{ form_end(products_form) }}

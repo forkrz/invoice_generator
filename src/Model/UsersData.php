@@ -10,12 +10,9 @@ use App\Validator as CustomValidators;
 class UsersData extends Model
 {
     public $casts = [
-        'NIP' => 'integer',
-        'NAME' => 'string',
-        'STREET' => 'string',
-        'ZIP_CODE' => 'string',
-        'CITY' => 'string',
-        'EMAIL' => 'string',
+        'username' => 'string',
+        'password' => 'string',
+        'INVOICE_UNIQUE_KEY' => 'string',
     ];
 
     /**
