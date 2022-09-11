@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\ClientUserDateInvoiceFormType;
 use App\Model\InvoicesTotal;
 use App\Model\UsersData;
+use App\PdfGenerator\MyPdf;
 use App\PdfGenerator\PdfGenerator;
 use App\Service\ControllersHelpers\InvoiceHelper;
 use App\Service\DbHelpers\ClientHelper;
@@ -20,7 +21,7 @@ class InvoiceController extends AbstractController
 {
 
     #[Route('/create', name: 'invoice_create')]
-    public function create(Request $request, PdfGenerator $pdf, ClientHelper $clientHelper, ProductHelper $productHelper, InvoiceHelper $invoiceHelper,InvoiceProductHelper $invoiceProductHelper, InvoiceTotalHelper $invoiceTotalHelper): Response
+    public function create(Request $request, MyPdf $pdf, ClientHelper $clientHelper, ProductHelper $productHelper, InvoiceHelper $invoiceHelper,InvoiceProductHelper $invoiceProductHelper, InvoiceTotalHelper $invoiceTotalHelper): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $settings = UsersData::query()
@@ -36,11 +37,12 @@ class InvoiceController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $invoiceTotalData = $invoiceHelper->prepareInvoiceTotalData($form);
             $invoiceId = $invoiceTotalHelper->createRecord($this->getUser()->getId(), $invoiceTotalData);
-            $productData = $invoiceHelper->prepareInvoiceProductsData($invoiceId, $form);
-            foreach ($productData as $product){
+            $productsData = $invoiceHelper->prepareInvoiceProductsData($invoiceId, $form);
+            foreach ($productsData as $product){
                 $invoiceProductHelper->createRecord($this->getUser()->getId(), $product);
 
             }
+            $pdf->createInvoice($invoiceTotalData, $productsData);
             dd('xd');
         }
 
