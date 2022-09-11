@@ -1,5 +1,12 @@
-body {
-  background-color: lightgray;
+@import "~bootstrap/scss/bootstrap";
+
+.body {
+  background-color: #efefef;
+  font-family: 'roboto';
+}
+
+.form-control{
+  background-color: #efefef;
 }
 
 .product-container {
@@ -55,7 +62,6 @@ body {
 }
 
 
-@import "~bootstrap/scss/bootstrap";
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';

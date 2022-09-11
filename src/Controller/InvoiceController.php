@@ -43,7 +43,6 @@ class InvoiceController extends AbstractController
 
             }
             $pdf->createInvoice($invoiceTotalData, $productsData);
-            dd('xd');
         }
 
         $userId = $this->getUser()->getId();
