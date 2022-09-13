@@ -6,7 +6,6 @@ use App\Form\ClientUserDateInvoiceFormType;
 use App\Model\InvoicesTotal;
 use App\Model\UsersData;
 use App\PdfGenerator\MyPdf;
-use App\PdfGenerator\PdfGenerator;
 use App\Service\ControllersHelpers\InvoiceHelper;
 use App\Service\DbHelpers\ClientHelper;
 use App\Service\DbHelpers\InvoiceProductHelper;

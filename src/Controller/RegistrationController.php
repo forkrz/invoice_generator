@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
+use App\Model\Users;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
+use AppBundle\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,30 +23,26 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        $uniqueKeys = $entityManager->createQuery('SELECT u.INVOICE_UNIQUE_KEY FROM App\Entity\Users u')->getResult(\Doctrine\ORM\Query::HYDRATE_SCALAR_COLUMN);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
-            function checkUniqnessOfHash($uniqueKeys,$user){
+            $uniqueKeys = Users::query()
+                ->get()
+                ->pluck('INVOICE_UNIQUE_KEY')
+                ->toArray();
+
+            function checkUniqnessOfHash($uniqueKeys, $user)
+            {
                 $newUniqueKey = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
-                if(in_array($newUniqueKey, $uniqueKeys)){
-                    checkUniqnessOfHash($uniqueKeys,$user);
-                }else{
-                    $user->setInvoiceUniqueKey($newUniqueKey);
+                if (in_array($newUniqueKey, $uniqueKeys)) {
+                    checkUniqnessOfHash($uniqueKeys, $user);
+                } else {
+                    $user->INVOICE_UNIQUE_KEY = $newUniqueKey;
                 }
             }
-
-            checkUniqnessOfHash($uniqueKeys,$user);
+            checkUniqnessOfHash($uniqueKeys, $user);
             // encode the plain password
-            $user->setPassword(
-            $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $user->password = $userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData());
+            $user->save();
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
