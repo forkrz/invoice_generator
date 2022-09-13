@@ -1,11 +1,13 @@
 @import "~bootstrap/scss/bootstrap";
 
+
 .body {
   background-color: #efefef;
   font-family: 'roboto';
 }
-.form-select{
-  background-color:#efefef;
+
+.form-select {
+  background-color: #efefef;
   width: auto;
 }
 
@@ -201,7 +203,7 @@ h2 {
 
 #add-product-button {
   height: 60%;
-  align-self:center;
+  align-self: center;
 }
 
 .form__submit_container {
@@ -209,11 +211,33 @@ h2 {
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
-  >button{
-    padding:0.5rem 5rem;
+
+  > button {
+    padding: 0.5rem 5rem;
   }
 }
 
+.single-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 90vh;
+  > form{
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+    width: 25%;
+    padding: 4rem;
+  }
+}
+
+.table{
+  width: 75%;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+}
+
+.table-container{
+  height: 30vh;
+}
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
