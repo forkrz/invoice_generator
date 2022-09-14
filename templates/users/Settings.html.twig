@@ -1,74 +1,67 @@
 {% extends 'base.html.twig' %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('settings') }}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 {% block body %}
 
-    <div class="vh-100">
-        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-            <div class="container h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                        <div class="card" style="border-radius: 15px;">
-                            <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5">User Settings</h2>
-                                {{ form_start(user_settings_form, {'method': 'POST'}) }}
-                                <div class="form-outline mb-4">
-                                    {{ form_widget(user_settings_form.NIP, {'id': 'NIP','attr': {'class': 'form-control form-control-lg'}}) }}
-                                    {{ form_label(user_settings_form.NIP,null, {'label': ' Client Nip', 'label_attr': {'class': 'form-label'}}) }}
-                                    {%  if errors.nip is defined %}
-                                        <div style="color: red">{{  errors.nip }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    {{ form_widget(user_settings_form.NAME, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
-                                    {{ form_label(user_settings_form.NAME,null, {'label': 'Company Name', 'label_attr': {'class': 'form-label'}}) }}
-                                    {%  if errors.NAME is defined %}
-                                        <div style="color: red">{{  errors.name }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    {{ form_widget(user_settings_form.STREET, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
-                                    {{ form_label(user_settings_form.STREET,null, {'label': 'STREET', 'label_attr': {'class': 'form-label'}}) }}
-                                    {%  if errors.street is defined %}
-                                        <div style="color: red">{{  errors.street }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    {{ form_widget(user_settings_form.ZIP_CODE, {'id': 'ZIP','attr': {'class': 'form-control form-control-lg'}}) }}
-                                    {{ form_label(user_settings_form.ZIP_CODE,null, {'label': 'ZIP CODE', 'label_attr': {'class': 'form-label'}}) }}
-                                    {%  if errors.zipCode is defined %}
-                                        <div style="color: red">{{  errors.zipCode }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    {{ form_widget(user_settings_form.CITY, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
-                                    {{ form_label(user_settings_form.CITY,null, {'label': 'CITY', 'label_attr': {'class': 'form-label'}}) }}
-                                    {%  if errors.city is defined %}
-                                        <div style="color: red">{{  errors.city }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    {{ form_widget(user_settings_form.EMAIL, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
-                                    {{ form_label(user_settings_form.EMAIL,null, {'label': 'EMAIL', 'label_attr': {'class': 'form-label'}}) }}
-                                    {%  if errors.email is defined %}
-                                        <div style="color: red">{{  errors.email }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="d-flex justify-content-center">
-                                    {{ form_row(user_settings_form.Submit, {'attr': {'class': 'btn btn-success btn-block btn-lg gradient-custom-4 text-body' }}) }}
-                                </div>
-
-                                {{ form_end(user_settings_form) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="single-form-container">
+        <h2 class="text-uppercase text-center mb-5">User Settings</h2>
+        {{ form_start(user_settings_form, {'method': 'POST'}) }}
+        <div class="form-outline mb-4">
+            {{ form_widget(user_settings_form.NIP, {'id': 'NIP','attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_label(user_settings_form.NIP,null, {'label': ' Client Nip', 'label_attr': {'class': 'form-label'}}) }}
+            {% if errors.nip is defined %}
+                <div style="color: red">{{ errors.nip }}</div>
+            {% endif %}
         </div>
+
+        <div class="form-outline mb-4">
+            {{ form_widget(user_settings_form.NAME, {'id': 'NAME', 'attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_label(user_settings_form.NAME,null, {'label': 'Company Name', 'label_attr': {'class': 'form-label'}}) }}
+            {% if errors.NAME is defined %}
+                <div style="color: red">{{ errors.name }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-outline mb-4">
+            {{ form_widget(user_settings_form.STREET, {'id': 'STREET', 'attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_label(user_settings_form.STREET,null, {'label': 'Street', 'label_attr': {'class': 'form-label'}}) }}
+            {% if errors.street is defined %}
+                <div style="color: red">{{ errors.street }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-outline mb-4">
+            {{ form_widget(user_settings_form.ZIP_CODE, {'id': 'ZIP','attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_label(user_settings_form.ZIP_CODE,null, {'label': 'Zip Code', 'label_attr': {'class': 'form-label'}}) }}
+            {% if errors.zipCode is defined %}
+                <div style="color: red">{{ errors.zipCode }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-outline mb-4">
+            {{ form_widget(user_settings_form.CITY, {'id': 'CITY', 'attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_label(user_settings_form.CITY,null, {'label': 'City', 'label_attr': {'class': 'form-label'}}) }}
+            {% if errors.city is defined %}
+                <div style="color: red">{{ errors.city }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-outline mb-4">
+            {{ form_widget(user_settings_form.EMAIL, {'id': 'EMAIL', 'attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_label(user_settings_form.EMAIL,null, {'label': 'EMAIL', 'label_attr': {'class': 'form-label'}}) }}
+            {% if errors.email is defined %}
+                <div style="color: red">{{ errors.email }}</div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-center">
+            {{ form_row(user_settings_form.Submit, {'attr': {'class': 'btn btn-success btn-block btn-lg gradient-custom-4 text-body' }}) }}
+        </div>
+
+        {{ form_end(user_settings_form) }}
     </div>
+
 
 {% endblock %}

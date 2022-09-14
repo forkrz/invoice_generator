@@ -27,7 +27,7 @@ class Products extends Model
      * @CustomValidators\ProductsValidators\Money(mode="loose")
      */
     public function getPrice(){
-        return $this->PRICE;
+        return $this->NET_PRICE;
     }
 
     /**

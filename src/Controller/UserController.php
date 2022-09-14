@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 Class UserController extends AbstractController
 {
     /**
-     * @Route("/users/settings/", name="user_settings")
+     * @Route("/settings/", name="user_settings")
      */
     public function settings(Request $request,ValidatorInterface $validator):Response
     {
