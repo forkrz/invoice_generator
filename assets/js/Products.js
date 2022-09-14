@@ -5,15 +5,36 @@ export class Products {
     init() {
         const productContainer = document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1];
         let inputLists = productContainer.parentNode.parentNode.querySelectorAll('div');
-        let netPriceMask = IMask(
+
+        let quantityMask = IMask(
             inputLists[1].querySelector('input'),
             {
-                mask: '00000.00'
+                mask: Number,
+                min: 1,
+                max: 99,
+                scale: 0,
+                signed: false
             });
+
+        let netPriceMask = IMask(
+            inputLists[2].querySelector('input'),
+            {
+                mask: Number,
+                min: 1,
+                max: 9999,
+                scale: 2,
+                signed: false,
+                radix: '.'
+            });
+
         let taxRateMask = IMask(
             inputLists[3].querySelector('input'),
             {
-                mask: '00'
+                mask: Number,
+                min: 1,
+                max: 99,
+                scale: 0,
+                signed: false
             });
 
         this.addNewProductInput();
@@ -47,16 +68,37 @@ export class Products {
             productsList.append(NewProductInput);
             const productContainer = document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1];
             let inputLists = productContainer.parentNode.parentNode.querySelectorAll('div');
-            let netPriceMask = IMask(
+            let quantityMask = IMask(
                 inputLists[1].querySelector('input'),
                 {
-                    mask: '00000.00'
+                    mask: Number,
+                    min: 1,
+                    max: 99,
+                    scale: 0,
+                    signed: false
                 });
+
+            let netPriceMask = IMask(
+                inputLists[2].querySelector('input'),
+                {
+                    mask: Number,
+                    min: 1,
+                    max: 9999,
+                    scale: 2,
+                    signed: false,
+                    radix: '.'
+                });
+
             let taxRateMask = IMask(
                 inputLists[3].querySelector('input'),
                 {
-                    mask: '00'
+                    mask: Number,
+                    min: 1,
+                    max: 99,
+                    scale: 0,
+                    signed: false
                 });
+
             this.fillProductData(productContainer, netPriceMask, taxRateMask);
             this.calculateNetValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[4].querySelector('input'));
             this.calculateTaxValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[3].querySelector('input'), inputLists[5].querySelector('input'));
@@ -80,8 +122,10 @@ export class Products {
             inputLists[0].querySelector('input').value = productData.name;
             inputLists[2].querySelector('input').value = productData.price;
             inputLists[3].querySelector('input').value = productData.tax;
+
             netPriceMask.updateValue();
             taxRateMask.updateValue();
+            inputLists[2].querySelector('input').dispatchEvent(new Event('change'));
             inputLists[3].querySelector('input').dispatchEvent(new Event('change'));
         })
     }
@@ -168,13 +212,13 @@ export class Products {
     }
 
     toggleDeleteButtons() {
-        const deleteButtons= document.getElementsByClassName("fa-solid fa-xmark delete-product-icon");
-        if(deleteButtons.length > 1) {
-            Array.from(deleteButtons).forEach((el) =>{
+        const deleteButtons = document.getElementsByClassName("fa-solid fa-xmark delete-product-icon");
+        if (deleteButtons.length > 1) {
+            Array.from(deleteButtons).forEach((el) => {
                 el.style.display = 'block'
             })
         } else {
-            Array.from(deleteButtons).forEach((el) =>{
+            Array.from(deleteButtons).forEach((el) => {
                 el.style.display = 'none'
             })
         }

@@ -160,7 +160,7 @@
                             <option selected disabled hidden>Select Product</option>
                             {% for product in productList %}
                                 <option data-name="{{ product.NAME }}"
-                                        data-price="{{ product.PRICE }}"
+                                        data-price="{{ product.NET_PRICE }}"
                                         data-tax-rate="{{ product.TAX_RATE }}"
                                         data-product-id="{{ product.ID }}">{{ product.NAME }} </option>
                             {% endfor %}
