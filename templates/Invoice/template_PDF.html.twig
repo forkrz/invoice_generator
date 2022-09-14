@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+<div style="text-align:right;">
+    <div>Invoice Date: {{ invoiceTotalData.date_of_issue }}</div>
+    <div>Realised on: {{ invoiceTotalData.realised_on }}</div>
+</div>
+<table style="background-color:#e3e3e3;text-align:center; width:100%;vertical-align: middle;margin-top:2rem;border-top: 1px solid black;border-bottom: 1px solid black;">
+    <tr>
+        <td style="height: 2em">{{ invoiceTotalData.name }}</td>
+    </tr>
+</table>
+<div style="width:100%;height:2em">
+    <div style="float:left;width: 45%;margin-right:5%;border-bottom: 1px solid black;margin-top:2rem"> Seller</div>
+    <div style="float:right;width: 45%;border-bottom: 1px solid black;margin-top:2rem;margin-left: 5%"> Buyer</div>
+</div>
+<div style="clear: both"></div>
+<div style="width:100%">
+    <div style="float:left;width:45%;margin-right:5%;font-size:10px"> {{ invoiceTotalData.user_name }}</div>
+    <div style="float:right;width: 45%;margin-left: 5%;font-size:10px"> {{ invoiceTotalData.client_name }}</div>
+</div>
+<div style="clear: both"></div>
+<div style="width:100%">
+    <div style="float:left;width:45%;margin-right:5%;font-size:10px"> {{ invoiceTotalData.user_street }}</div>
+    <div style="float:right;width: 45%;margin-left: 5%;font-size:10px"> {{ invoiceTotalData.client_street }}</div>
+</div>
+<div style="clear: both"></div>
+<div style="width:100%">
+    <div style="float:left;width:45%;margin-right:5%;font-size:10px"> {{ invoiceTotalData.user_zip_code }}</div>
+    <div style="float:right;width: 45%;margin-left: 5%;font-size:10px"> {{ invoiceTotalData.client_zip_code }}</div>
+</div>
+<div style="clear: both"></div>
+<div style="width:100%">
+    <div style="float:left;width:45%;margin-right:5%;font-size:10px"> {{ invoiceTotalData.user_nip }}</div>
+    <div style="float:right;width: 45%;margin-left: 5%;font-size:10px"> {{ invoiceTotalData.client_nip }}</div>
+</div>
+<div style="clear: both"></div>
+<div style="width:100%">
+    <div style="float:left;width:45%;margin-right:5%;font-size:10px"> {{ invoiceTotalData.user_email }}</div>
+    <div style="float:right;width: 45%;margin-left: 5%;font-size:10px"> {{ invoiceTotalData.client_email }}</div>
+</div>
+<div style="clear: both"></div>
+<table style="width: 100%; border: 1px solid black;border-collapse: collapse;margin-top:20px">
+    <thead>
+    <tr style="background-color:#e3e3e3;font-size:12px">
+        <th style="border-right: 1px solid black;border-bottom: 1px solid black;">LP.</th>
+        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding:5px">Name</th>
+        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding:5px;width:50px">Qty</th>
+        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding:5px;width:70px">Net Price</th>
+        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding:5px;width:70px">Net Value</th>
+        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding:5px;width:70px">Tax Rate</th>
+        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding:5px;width:80px">Gross Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product in invoiceProductData %}
+        <tr style="text-align: center;padding:2px;font-size:10px">
+            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding:0 5px">{{ loop.index }}</td>
+            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding:0 5px">{{ product.product_name }}</td>
+            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding:0 5px">{{ product.quantity }}</td>
+            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding:0 5px">{{ product.net_price|number_format(2, '.', ',') }}</td>
+            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding:0 5px">{{ product.net_value|number_format(2, '.', ',') }}</td>
+            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding:0 5px">{{ product.tax_rate }}%</td>
+            <td style="border-right: 1px solid black;border-bottom: 1px solid black;padding:0 5px">{{ product.gross_value|number_format(2, '.', ',') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div style="float:right;margin:10px 0;">Paid to: {{ invoiceTotalData.pay_by }}</div>
+<div style="clear: both"></div>
+<div style="background-color:#e3e3e3;text-align:right;padding-right:160px;font-size:15px;font-weight:bold">Total Gross
+    Price: {{ invoiceTotalData.gross_value|number_format(2, '.', ',') }} PLN
+</div>
+</body>
+</html>

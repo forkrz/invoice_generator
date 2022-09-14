@@ -1,0 +1,184 @@
+{% extends 'base.html.twig' %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('generateInvoice') }}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+{% block body %}
+
+    <div class="wrapper">
+        {{ form_start(invoice_form, {'method': 'POST'}) }}
+        <div class="wrapper__form">
+            <div class="form__select_client_list">
+                <select id="clientsListSelect" class="form-select">
+                    <option selected disabled hidden>Select Client</option>
+                    {% for client in clientsList %}
+                        <option data-nip="{{ client.NIP }}" data-company-name="{{ client.COMPANY_NAME }}"
+                                data-street="{{ client.STREET }}" data-zip-code="{{ client.ZIP_CODE }}"
+                                data-city="{{ client.EMAIL }}" data-email="{{ client.EMAIL }}"
+                                data-client-id="{{ client.ID }}"> {{ client.COMPANY_NAME }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form__user_and_client_data_container">
+                <div class="user_and_client_data_container__user_container" id="users_data">
+                    <h2> User</h2>
+                    <div class="user_container__user_data">
+                        <div class="user_data__user_inputs">
+                            {{ form_widget(invoice_form.USER_NIP, {'attr': {'class':  'create_invoice_inputs','value': settings.NIP|default('')}}) }}
+                            <label class='form-label'>NIP</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_NAME, {'attr': {'class':  'create_invoice_inputs','value': settings.NAME|default('')}}) }}
+                            <label class='form-label'>Name</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_STREET, {'attr': {'class':  'create_invoice_inputs','value': settings.STREET|default('')}}) }}
+                            <label class='form-label'>Street</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_ZIP_CODE, {'attr': {'class':  'create_invoice_inputs','value': settings.ZIP_CODE|default('')}}) }}
+                            <label class='form-label'>Zip-Code</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_CITY, {'attr': {'class':  'create_invoice_inputs','value': settings.CITY|default('')}}) }}
+                            <label class='form-label'>City</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.USER_EMAIL, {'attr': {'class':  'create_invoice_inputs','value': settings.EMAIL|default('')}}) }}
+                            <label class='form-label'>Email</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user_and_client_data_container__client_container">
+                    <h2> Client</h2>
+                    <div class="user_container__client_data" id="clientsListData">
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_NIP, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                            <label class='form-label'>NIP</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_NAME, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                            <label class='form-label'>Name</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_STREET, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                            <label class='form-label'>Street</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_ZIP_CODE, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                            <label class='form-label'>Zip-Code</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_CITY, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                            <label class='form-label'>City</label>
+                        </div>
+
+                        <div class='create_invoice_user_client_inputs_containers'>
+                            {{ form_widget(invoice_form.CLIENT_EMAIL, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                            <label class='form-label'>Email</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__dates_header">
+                <h2> Dates</h2>
+            </div>
+            <div class="form__dates_container">
+                <div class="dates_container__dates_inputs">
+                    <div class="dates_inputs__input_containers">
+                        {{ form_widget(invoice_form.DATE_OF_ISSUE, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                        <label class='form-label'>Creation Date</label>
+                    </div>
+
+                    <div class="dates_inputs__input_containers">
+                        {{ form_widget(invoice_form.PAY_BY, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                        <label class='form-label'>Paid to</label>
+                    </div>
+
+                    <div class="dates_inputs__input_containers">
+                        {{ form_widget(invoice_form.REALISED_ON, {'attr': {'class':  'create_invoice_inputs'}}) }}
+                        <label class='form-label'>Service Date</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="products-list" class="form__products_list">
+                <div  class="products_list__header_button">
+                    <div class="header_select__header_container">
+                        <h2> Products</h2>
+                    </div>
+                    <div class="header_button__button_container">
+                        <button id="add-product-button" class="btn btn-primary"> add product</button>
+                    </div>
+                </div>
+                <div class="product-container"
+                     data-index="{{ invoice_form.Product|length > 0 ? invoice_form.Product|last.vars.name + 1 : 0 }}">
+
+                    <div>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.NAME) }}
+                        <label class='form-label'>Product Name</label>
+                    </div>
+                    <div>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.Quantity) }}
+                        <label class='form-label'>Quantity</label>
+                    </div>
+                    <div>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.NET_PRICE) }}
+                        <label class='form-label'>Net Price</label>
+                    </div>
+                    <div>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_RATE) }}
+                        <label class='form-label'>Tax Rate</label>
+                    </div>
+                    <div>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
+                        <label class='form-label'>Net Value</label>
+                    </div>
+                    <div>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
+                        <label class='form-label'>tax Value</label>
+                    </div>
+                    <div>
+                        {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}}) }}
+                        <label class='form-label'>Gross Value</label>
+                    </div>
+                    <div>
+                        <select class="form-select product-select" class="form-select">
+                            <option selected disabled hidden>Select Product</option>
+                            {% for product in productList %}
+                                <option data-name="{{ product.NAME }}"
+                                        data-price="{{ product.PRICE }}"
+                                        data-tax-rate="{{ product.TAX_RATE }}"
+                                        data-product-id="{{ product.ID }}">{{ product.NAME }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-xmark delete-product-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="form__submit_container">
+            {{ form_widget(invoice_form.submit, {'attr': {'value':'generate'}}) }}
+        </div>
+    </div>
+    {{ form_end(invoice_form) }}
+    </div>
+
+
+
+{% endblock %}
