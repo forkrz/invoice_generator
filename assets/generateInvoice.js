@@ -1,7 +1,7 @@
-import {Clients} from "./js/Clients";
-import {Products} from "./js/Products";
-import {Dates} from "./js/Dates";
-import {Validators} from "./js/Validators";
+import {Clients} from "./js/invoice/Clients";
+import {Products} from "./js/invoice/Products";
+import {Dates} from "./js/invoice/Dates";
+import {Validators} from "./js/invoice/Validators";
 
 const clients = new Clients();
 const products = new Products();
