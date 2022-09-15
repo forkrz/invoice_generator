@@ -9,9 +9,19 @@ use Illuminate\Database\Eloquent\Collection;
 class InvoiceTotalHelper implements DbHelpersInterface
 {
 
-    public function getListForUser(int $userId): Collection
+    public function getListForUser(int $userId): ?Collection
     {
-        // TODO: Implement getListForUser() method.
+        return InvoicesTotal::query()
+            ->where('USER_ID', $userId)
+            ->get();
+    }
+
+    public function getListToDisplay(int $userId): ?Collection
+    {
+        return InvoicesTotal::query()
+            ->where('USER_ID', $userId)
+            ->select('NAME', 'CLIENT_ID', 'CLIENT_NAME', 'DATE_OF_ISSUE', 'GROSS_VALUE', 'ID')
+            ->get();
     }
 
     public function createRecord(int $userId, array $data): int

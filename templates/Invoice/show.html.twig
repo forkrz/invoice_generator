@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="pt-4 d-flex justify-content-center align-items-center">
+        {% if invoicesData is defined %}
+            <table class="table w-50">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Client name</th>
+                    <th scope="col">Date of issue</th>
+                    <th scope="col">Gross value</th>
+                    <th scope="col">Download</th>
+                </tr>
+                <tbody>
+                {% for invoiceData in invoicesData %}
+                    <tr>
+                        <th scope="row"> {{ loop.index }} </th>
+                        <td> {{ invoiceData.NAME }}  </td>
+                        {% if invoiceData.CLIENT_ID is defined and invoiceData.CLIENT_ID is not same as 0 %}
+                            <td>
+                                <a href="{{ path('update_client', {'id': invoiceData.CLIENT_ID}) }}">{{ invoiceData.CLIENT_NAME }}</a>
+                            </td>
+                        {% else %}
+                            <td> {{ invoiceData.CLIENT_NAME }} </td>
+                        {% endif %}
+                        <td> {{ invoiceData.DATE_OF_ISSUE }} </td>
+                        <td> {{ invoiceData.GROSS_VALUE }} </td>
+                        <td><a href="{{ path('invoice_download', {'id': invoiceData.ID}) }}">Download</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% elseif msgEmptyList is defined %}
+            {{ msgEmptyList|replace({" ": "&nbsp;"})|raw|nl2br }}  <a href="{{ msgLink }}"> here.</a>
+        {% endif %}
+    </div>
+
+{% endblock %}
