@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+        {% block javascripts %}
+            {{ encore_entry_script_tags('userAndClientsDataTemplates') }}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 {% block body %}
 
 
@@ -15,7 +18,7 @@
             </div>
 
             <div class="form-outline mb-4">
-                {{ form_widget(clients_form.COMPANY_NAME, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+                {{ form_widget(clients_form.COMPANY_NAME, {'id': 'NAME','attr': {'class': 'form-control form-control-lg'}}) }}
                 {{ form_label(clients_form.COMPANY_NAME,null, {'label': 'Company Name', 'label_attr': {'class': 'form-label'}}) }}
                 {% if errors.companyName is defined %}
                     <div style="color: red">{{ errors.companyName }}</div>
@@ -23,7 +26,7 @@
             </div>
 
             <div class="form-outline mb-4">
-                {{ form_widget(clients_form.STREET, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+                {{ form_widget(clients_form.STREET, {'id': 'STREET','attr': {'class': 'form-control form-control-lg'}}) }}
                 {{ form_label(clients_form.STREET,null, {'label': 'STREET', 'label_attr': {'class': 'form-label'}}) }}
                 {% if errors.street is defined %}
                     <div style="color: red">{{ errors.street }}</div>
@@ -39,7 +42,7 @@
             </div>
 
             <div class="form-outline mb-4">
-                {{ form_widget(clients_form.CITY, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+                {{ form_widget(clients_form.CITY, {'id': 'CITY','attr': {'class': 'form-control form-control-lg'}}) }}
                 {{ form_label(clients_form.CITY,null, {'label': 'CITY', 'label_attr': {'class': 'form-label'}}) }}
                 {% if errors.city is defined %}
                     <div style="color: red">{{ errors.city }}</div>
@@ -47,7 +50,7 @@
             </div>
 
             <div class="form-outline mb-4">
-                {{ form_widget(clients_form.EMAIL, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+                {{ form_widget(clients_form.EMAIL, {'id': 'EMAIL','attr': {'class': 'form-control form-control-lg'}}) }}
                 {{ form_label(clients_form.EMAIL,null, {'label': 'EMAIL', 'label_attr': {'class': 'form-label'}}) }}
                 {% if errors.email is defined %}
                     <div style="color: red">{{ errors.email }}</div>

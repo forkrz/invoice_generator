@@ -6,7 +6,7 @@ const settings = new Settings();
 const nipMask = IMask(
     document.getElementById('NIP'),
     {
-        mask: '00000000000'
+        mask: '0000000000'
     });
 
 const zipCodeMask = IMask(
@@ -14,5 +14,4 @@ const zipCodeMask = IMask(
     {
         mask: '00-000'
     });
-
 settings.init();
