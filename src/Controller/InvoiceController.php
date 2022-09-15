@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ClientUserDateInvoiceFormType;
 use App\Model\InvoicesTotal;
+use App\Model\Products;
 use App\Model\UsersData;
 use App\PdfGenerator\MyPdf;
 use App\Service\ControllersHelpers\InvoiceHelper;
@@ -53,6 +54,30 @@ class InvoiceController extends AbstractController
             'clientsList' => $clientsList,
             'productList' => $productList,
         ]);
+    }
+
+    #[Route('/invoice/show', name: 'invoice/show')]
+    public function show(InvoiceTotalHelper $invoiceTotalHelper)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $invoiceTotalData = $invoiceTotalHelper->getListToDisplay($this->getUser()->getId())->toArray();
+
+        if (empty($invoiceTotalData)) {
+            return new Response($this->render('/Invoice/show.html.twig', [
+                'msgEmptyList' => 'You do not have any invoices. You can add them&nbsp;',
+                'msgLink' => $this->generateUrl('invoice_create'),
+            ]));
+        }
+
+        return new Response($this->render('/Invoice/show.html.twig', [
+            'invoicesData' => $invoiceTotalData,
+        ]));
+    }
+
+    #[Route('/download/id={id}', name: 'invoice_download')]
+    public function download()
+    {
+
     }
 }
 
