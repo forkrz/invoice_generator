@@ -36,7 +36,6 @@ export class Settings {
             const zipCodeRegex = /\d{2}-\d{3}/;
             const regex = new RegExp(zipCodeRegex);
             const zipCodeCheck = regex.test(zipCode.value);
-            console.log(zipCodeCheck);
             this.toggleErrorClass(zipCode, zipCodeCheck);
             return zipCodeCheck;
         } else {
@@ -47,28 +46,28 @@ export class Settings {
 
     checkName() {
         const name = document.getElementById('NAME');
-        const check = this.checkIfEmpty(name)
+        const check = !this.checkIfEmpty(name)
         this.toggleErrorClass(name, check);
         return check;
     }
 
     checkStreet() {
         const name = document.getElementById('STREET');
-        const check = this.checkIfEmpty(name)
+        const check = !this.checkIfEmpty(name)
         this.toggleErrorClass(name, check);
         return check;
     }
 
     checkCity() {
         const name = document.getElementById('CITY');
-        const check = this.checkIfEmpty(name)
+        const check = !this.checkIfEmpty(name)
         this.toggleErrorClass(name, check);
         return check;
     }
 
     checkEmail() {
         const name = document.getElementById('EMAIL');
-        const check = this.checkIfEmpty(name)
+        const check = !this.checkIfEmpty(name)
         this.toggleErrorClass(name, check);
         return check;
     }
