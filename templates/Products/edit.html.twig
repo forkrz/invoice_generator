@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+        {% block javascripts %}
+            {{ encore_entry_script_tags('products') }}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 {% block body %}
 
     <div class="single-form-container">
@@ -15,7 +18,7 @@
         </div>
 
         <div class="form-outline mb-4">
-            {{ form_widget(products_form.NET_PRICE, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_widget(products_form.NET_PRICE, {'id': 'NET_PRICE','attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(products_form.NET_PRICE,null, {'label': 'Price', 'label_attr': {'class': 'form-label'}}) }}
             {% if errors.price is defined %}
                 <div style="color: red">{{ errors.price }}</div>
@@ -23,7 +26,7 @@
         </div>
 
         <div class="form-outline mb-4">
-            {{ form_widget(products_form.TAX_RATE, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_widget(products_form.TAX_RATE, {'id': 'TAX_RATE','attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(products_form.TAX_RATE,null, {'label': 'Tax rate', 'label_attr': {'class': 'form-label'}}) }}
             {% if errors.taxRate is defined %}
                 <div style="color: red">{{ errors.taxRate }}</div>
