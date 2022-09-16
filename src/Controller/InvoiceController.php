@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Form\ClientUserDateInvoiceFormType;
 use App\Model\InvoicesTotal;
-use App\Model\Products;
 use App\Model\UsersData;
 use App\PdfGenerator\MyPdf;
 use App\Service\ControllersHelpers\InvoiceHelper;
@@ -75,8 +74,18 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/download/id={id}', name: 'invoice_download')]
-    public function download()
+    public function download(int $id, InvoiceTotalHelper $invoiceTotalHelper, InvoiceProductHelper $invoiceProductHelper, mypdf $pdf, InvoiceHelper $invoiceHelper)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $invoice = $invoiceTotalHelper->getlistforuser($this->getuser()->getid())->where('ID', $id)->first();
+
+        if (empty($invoice)) {
+            $this->addflash('error', 'you are not allowed to download these invoice');
+            return new response($this->redirecttoroute('invoice/show'));
+        }
+        $invoicedata = $invoiceProductHelper->getdataforinvoice($this->getuser()->getid(), $id);
+        $preparedData = $invoiceHelper->prepareInvoiceDataFromDb($invoicedata->toArray());
+        $pdf->downloadInvoice($preparedData);
 
     }
 }
