@@ -80,7 +80,7 @@ class ProductsController extends AbstractController
     /**
      * @Route("/products/update/id={id}", name="update_product")
      */
-    public function update($id, Request $request): Response
+    public function update(int $id, Request $request, ValidatorInterface $validator): Response
     {
         $editedProductsData = Products::query()
             ->where('ID', $id)
@@ -115,12 +115,21 @@ class ProductsController extends AbstractController
 
             $this->addFlash('success', 'Product data updated');
             return new Response($this->redirectToRoute('show_products'));
-
         }
+
+        $errors = [];
+
+        foreach ($validator->validate($form) as $error) {
+            $fieldName = substr($error->getPropertyPath(), 5);
+            $errors[] = [$fieldName => $error->getMessage()];
+        }
+
+        $errors = array_merge(...$errors);
 
         return new Response($this->render('/products/edit.html.twig', [
             'productData' => $editedProductsData,
             'products_form' => $form->createView(),
+            'errors' => $errors,
         ]));
     }
 

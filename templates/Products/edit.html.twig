@@ -10,7 +10,7 @@
 
         {{ form_start(products_form, {'method': 'POST'}) }}
         <div class="form-outline mb-4">
-            {{ form_widget(products_form.NAME, {'id': 'form3Example4cg','attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_widget(products_form.NAME, {'id': 'NAME','attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(products_form.NAME,null, {'label': 'Name', 'label_attr': {'class': 'form-label'}}) }}
             {% if errors.name is defined %}
                 <div style="color: red">{{ errors.name }}</div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="d-flex justify-content-center">
-            {{ form_row(products_form.Create, {'attr': {'class': 'btn btn-success btn-block btn-lg gradient-custom-4 text-body' }}) }}
+            {{ form_row(products_form.Create, {'label': 'Save', 'attr': {'class': 'btn btn-success btn-block btn-lg gradient-custom-4 text-body'}}) }}
         </div>
 
         {{ form_end(products_form) }}

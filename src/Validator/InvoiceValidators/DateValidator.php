@@ -1,11 +1,11 @@
 <?php
-namespace App\Validator\ProductsValidators;
+namespace App\Validator\InvoiceValidators;
 
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class ProductNameValidator extends ConstraintValidator
+class DateValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint){
 
