@@ -17,7 +17,7 @@ class InvoiceHelper
     private $productHelper;
     private $clientHelper;
 
-    public function __construct(Security $security, UserHelper $userHelper, InvoiceTotalHelper $invoiceTotalHelper, ProductHelper $productHelper,ClientHelper $clientHelper)
+    public function __construct(Security $security, UserHelper $userHelper, InvoiceTotalHelper $invoiceTotalHelper, ProductHelper $productHelper, ClientHelper $clientHelper)
     {
         $this->security = $security;
         $this->userHelper = $userHelper;
@@ -81,24 +81,24 @@ class InvoiceHelper
 
     private function getInvoiceName(string $userUniqueKey, int $invoiceQuantity, string $creationDate): string
     {
-        return $userUniqueKey . '/' . $invoiceQuantity + 1 . '/' . $creationDate;
+        return $userUniqueKey . '|' . $invoiceQuantity + 1 . '|' . $creationDate;
     }
 
     public function prepareInvoiceProductsData(int $invoiceId, FormInterface $form): array
     {
         $userProducts = $this->productHelper->getListForUser($this->security->getUser()->getId());
         $products = $form->getData()->Product;
-         return array_map(function ($el) use($invoiceId, $userProducts){
+        return array_map(function ($el) use ($invoiceId, $userProducts) {
             $productId = '';
-            if(!$userProducts->isEmpty()){
-                $productData = $userProducts->where('NAME',$el['NAME']);
-                !$productData->isEmpty() ? $productId =  $productData->first()->ID : '';
+            if (!$userProducts->isEmpty()) {
+                $productData = $userProducts->where('NAME', $el['NAME']);
+                !$productData->isEmpty() ? $productId = $productData->first()->ID : '';
             }
             $netValue = $el['NET_PRICE'] * $el['Quantity'];
             $taxValue = $el['NET_PRICE'] * $el['Quantity'] * $el['TAX_RATE'] / 100;
             $grossValue = $netValue + $taxValue;
 
-            return[
+            return [
                 'invoice_id' => $invoiceId,
                 'product_id' => $productId,
                 'product_name' => $el['NAME'],
@@ -111,6 +111,48 @@ class InvoiceHelper
 
             ];
         }, $products);
+    }
+
+    public function prepareInvoiceDataFromDb(array $dataFromDb): array
+    {
+        $totalData = [
+            'user_nip' => $dataFromDb[0]['USER_NIP'],
+            'name' => $dataFromDb[0]['NAME'],
+            'user_name' => $dataFromDb[0]['USER_NAME'],
+            'user_street' => $dataFromDb[0]['USER_STREET'],
+            'user_zip_code' => $dataFromDb[0]['USER_ZIP_CODE'],
+            'user_city' => $dataFromDb[0]['USER_CITY'],
+            'user_email' => $dataFromDb[0]['USER_EMAIL'],
+            'client_nip' => $dataFromDb[0]['CLIENT_NIP'],
+            'client_name' => $dataFromDb[0]['CLIENT_NAME'],
+            'client_street' => $dataFromDb[0]['CLIENT_STREET'],
+            'client_zip_code' => $dataFromDb[0]['CLIENT_ZIP_CODE'],
+            'client_city' => $dataFromDb[0]['CLIENT_CITY'],
+            'client_email' => $dataFromDb[0]['CLIENT_EMAIL'],
+            'date_of_issue' => $dataFromDb[0]['DATE_OF_ISSUE'],
+            'pay_by' => $dataFromDb[0]['PAY_BY'],
+            'realised_on' => $dataFromDb[0]['REALISED_ON'],
+            'net_value' => $dataFromDb[0]['NET_VALUE'],
+            'vat_value' => $dataFromDb[0]['VAT_VALUE'],
+            'gross_value' => $dataFromDb[0]['VAT_VALUE'],
+        ];
+
+        $productsData = array_map(function ($el) {
+            return [
+                'product_name' => $el['PRODUCT_NAME'],
+                'net_price' => $el['PRODUCT_NET_PRICE'],
+                'tax_rate' => $el['TAX_RATE'],
+                'quantity' => $el['QUANTITY'],
+                'net_value' => $el['PRODUCT_NET_VALUE'],
+                'tax_value' => $el['PRODUCT_TAX_VALUE'],
+                'gross_value' => $el['PRODUCT_GROSS_VALUE'],
+
+            ];
+        }, $dataFromDb);
+        return [
+            'totalData' => $totalData,
+            'productsData' => $productsData,
+            ];
     }
 
 }
