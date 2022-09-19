@@ -13,6 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 Class UserController extends AbstractController
 {
     /**
+     * @Route("/")
+     */
+    public function index(): Response
+    {
+        return $this->render('base.html.twig');
+    }
+    /**
      * @Route("/settings/", name="user_settings")
      */
     public function settings(Request $request,ValidatorInterface $validator):Response
