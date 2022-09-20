@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use WouterJ\EloquentBundle\Facade\Schema;
 
-return new class extends Migration
+Class createClients extends \App\Service\Migrations
 {
     /**
      * Run the migrations.
