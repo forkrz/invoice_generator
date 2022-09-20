@@ -48,7 +48,7 @@ Class ClientsController extends AbstractController
 
             $errors = array_merge(...$errors);
 
-            return new Response($this->render('/clients/create.html.twig', [
+            return new Response($this->renderView('/clients/create.html.twig', [
                 'clients_form' => $form->createView(),
                 'errors' => $errors,
             ]));
@@ -61,7 +61,7 @@ Class ClientsController extends AbstractController
     {
         if($this->getUser() === null)
         {
-            return $this->render('security/login.html.twig');
+            return $this->renderView('security/login.html.twig');
         }
 
         $userClientsData = Clients::query()
@@ -70,13 +70,13 @@ Class ClientsController extends AbstractController
             ->toArray();
 
         if(empty($userClientsData)){
-            return new Response($this->render('/clients/show.html.twig', [
+            return new Response($this->renderView('/clients/show.html.twig', [
                 'msgEmptyList' => 'You do not have any clients. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('create_client'),
             ]));
         }
 
-        return new Response($this->render('/clients/show.html.twig', [
+        return new Response($this->renderView('/clients/show.html.twig', [
             'clientsData' => $userClientsData,
         ]));
     }
@@ -133,7 +133,7 @@ Class ClientsController extends AbstractController
 
         $errors = array_merge(...$errors);
 
-        return new Response($this->render('/clients/edit.html.twig', [
+        return new Response($this->renderView('/clients/edit.html.twig', [
             'clientData' => $editedClientData,
             'clients_form' => $form->createView(),
             'errors' => $errors,
