@@ -5,18 +5,20 @@ export class Clients {
 
     showClientDataFromList() {
         const clientsList = document.getElementById("clientsListSelect");
-        clientsList.addEventListener('change', () => {
-            let selectedClient = clientsList.options[clientsList.selectedIndex];
-            let clientData = {
-                'nip': selectedClient.getAttribute('data-nip'),
-                'company-name': selectedClient.getAttribute('data-company-name'),
-                'street': selectedClient.getAttribute('data-Street'),
-                'zip-code': selectedClient.getAttribute('data-zip-code'),
-                'city': selectedClient.getAttribute('data-city'),
-                'email': selectedClient.getAttribute('data-email'),
-            }
-            this.fillClientsData(clientData)
-        })
+        if(clientsList !== null){
+            clientsList.addEventListener('change', () => {
+                let selectedClient = clientsList.options[clientsList.selectedIndex];
+                let clientData = {
+                    'nip': selectedClient.getAttribute('data-nip'),
+                    'company-name': selectedClient.getAttribute('data-company-name'),
+                    'street': selectedClient.getAttribute('data-Street'),
+                    'zip-code': selectedClient.getAttribute('data-zip-code'),
+                    'city': selectedClient.getAttribute('data-city'),
+                    'email': selectedClient.getAttribute('data-email'),
+                }
+                this.fillClientsData(clientData)
+            })
+        }
     }
 
     fillClientsData(clientData) {

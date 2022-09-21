@@ -1,3 +1,4 @@
+{% dump(clientsList) %}
 {% extends 'base.html.twig' %}
         {% block javascripts %}
             {{ encore_entry_script_tags('generateInvoice') }}
@@ -9,6 +10,7 @@
         {{ form_start(invoice_form, {'method': 'POST'}) }}
         <div class="wrapper__form">
             <div class="form__user_and_client_data_container">
+                {% if clientsList is not empty%}
                 <div class="form__select_client_list">
                     <select id="clientsListSelect" class="form-select">
                         <option selected disabled hidden>Select Client</option>
@@ -20,6 +22,7 @@
                         {% endfor %}
                     </select>
                 </div>
+                {% endif %}
                 <div class="user_client_container" >
                 <div class="user_and_client_data_container__user_container" id="users_data">
                     <h2> User</h2>
@@ -154,6 +157,7 @@
                         {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}}) }}
                         <label class='form-label'>Gross Value</label>
                     </div>
+                    {% if productList is not empty%}
                     <div>
                         <select class="form-select product-select" class="form-select">
                             <option selected disabled hidden>Select Product</option>
@@ -165,6 +169,7 @@
                             {% endfor %}
                         </select>
                     </div>
+                    {% endif %}
                     <div>
                         <i class="fa-solid fa-xmark delete-product-icon"></i>
                     </div>
