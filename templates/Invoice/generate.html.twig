@@ -8,19 +8,19 @@
     <div class="wrapper">
         {{ form_start(invoice_form, {'method': 'POST'}) }}
         <div class="wrapper__form">
-            <div class="form__select_client_list">
-                <select id="clientsListSelect" class="form-select">
-                    <option selected disabled hidden>Select Client</option>
-                    {% for client in clientsList %}
-                        <option data-nip="{{ client.NIP }}" data-company-name="{{ client.COMPANY_NAME }}"
-                                data-street="{{ client.STREET }}" data-zip-code="{{ client.ZIP_CODE }}"
-                                data-city="{{ client.EMAIL }}" data-email="{{ client.EMAIL }}"
-                                data-client-id="{{ client.ID }}"> {{ client.COMPANY_NAME }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
             <div class="form__user_and_client_data_container">
+                <div class="form__select_client_list">
+                    <select id="clientsListSelect" class="form-select">
+                        <option selected disabled hidden>Select Client</option>
+                        {% for client in clientsList %}
+                            <option data-nip="{{ client.NIP }}" data-company-name="{{ client.COMPANY_NAME }}"
+                                    data-street="{{ client.STREET }}" data-zip-code="{{ client.ZIP_CODE }}"
+                                    data-city="{{ client.EMAIL }}" data-email="{{ client.EMAIL }}"
+                                    data-client-id="{{ client.ID }}"> {{ client.COMPANY_NAME }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="user_client_container" >
                 <div class="user_and_client_data_container__user_container" id="users_data">
                     <h2> User</h2>
                     <div class="user_container__user_data">
@@ -91,6 +91,7 @@
 
                     </div>
                 </div>
+                </div>
             </div>
 
             <div class="form__dates_header">
@@ -117,9 +118,7 @@
 
             <div id="products-list" class="form__products_list">
                 <div  class="products_list__header_button">
-                    <div class="header_select__header_container">
                         <h2> Products</h2>
-                    </div>
                     <div class="header_button__button_container">
                         <button id="add-product-button" class="btn btn-primary"> add product</button>
                     </div>
