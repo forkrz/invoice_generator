@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Model\Users;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
-use AppBundle\Model\User;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +16,11 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, Security $security): Response
     {
+        if ($security->getUser() !== null) {
+            return $this->redirectToRoute('invoice/show');
+        }
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -29,6 +31,15 @@ class RegistrationController extends AbstractController
                 ->get()
                 ->pluck('INVOICE_UNIQUE_KEY')
                 ->toArray();
+
+            $loginCheck = Users::query()
+                ->where('username', $form->get('username')->getData())
+                ->get();
+
+            if($loginCheck->isNotEmpty()) {
+                $this->addflash('error', 'User with this name already exists.');
+                return $this->redirectToRoute('app_register');
+            }
 
             function checkUniqnessOfHash($uniqueKeys, $user)
             {
@@ -41,15 +52,11 @@ class RegistrationController extends AbstractController
             }
             checkUniqnessOfHash($uniqueKeys, $user);
             // encode the plain password
-            $user->password = $userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData());
+            $user->password = $userPasswordHasher->hashPassword($user, $form->get('password')->getData());
             $user->save();
             // do anything else you need here, like send an email
-
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            $this->addflash('success', 'Registration successful.');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [
