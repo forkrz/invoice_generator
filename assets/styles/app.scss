@@ -28,6 +28,7 @@ h2 {
   justify-content: center;
   border-radius: 0.25rem;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+  margin-bottom: 1rem;
 
   > div {
     margin-top: 0.5rem;
@@ -240,6 +241,10 @@ h2 {
 
 .table-container {
   height: 30vh;
+}
+
+.btn-add {
+  margin-bottom: 1rem;
 }
 
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';

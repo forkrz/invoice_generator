@@ -4,7 +4,7 @@ export class Products {
 
     init() {
         const productContainer = document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1];
-        let inputLists = productContainer.parentNode.parentNode.querySelectorAll('div');
+        let inputLists = document.getElementById('client_user_date_invoice_form_Product___name___NAME').parentNode.parentNode.querySelectorAll('div');
 
         let quantityMask = IMask(
             inputLists[1].querySelector('input'),
@@ -38,7 +38,9 @@ export class Products {
             });
 
         this.addNewProductInput();
-        this.fillProductData(productContainer, netPriceMask, taxRateMask);
+        if(typeof productContainer !== 'undefined'){
+            this.fillProductData(productContainer, netPriceMask, taxRateMask);
+        }
         this.calculateNetValue(document.getElementById('client_user_date_invoice_form_Product___name___Quantity'), document.getElementById('client_user_date_invoice_form_Product___name___NET_PRICE'), document.getElementById('client_user_date_invoice_form_Product___name___NET_VALUE'));
         this.calculateTaxValue(document.getElementById('client_user_date_invoice_form_Product___name___Quantity'), document.getElementById('client_user_date_invoice_form_Product___name___NET_PRICE'), document.getElementById('client_user_date_invoice_form_Product___name___TAX_RATE'), document.getElementById('client_user_date_invoice_form_Product___name___TAX_VALUE'));
         this.calculateGrossValue(document.getElementById('client_user_date_invoice_form_Product___name___Quantity'), document.getElementById('client_user_date_invoice_form_Product___name___NET_PRICE'), document.getElementById('client_user_date_invoice_form_Product___name___TAX_RATE'), document.getElementById('client_user_date_invoice_form_Product___name___NET_VALUE'), document.getElementById('client_user_date_invoice_form_Product___name___TAX_VALUE'), document.getElementById('client_user_date_invoice_form_Product___name___GROSS_VALUE'));
@@ -47,7 +49,7 @@ export class Products {
 
     addNewProductInput() {
         const productsList = document.getElementById('products-list');
-        const inputDiv = productsList.getElementsByTagName('div')[3];
+        const inputDiv = productsList.getElementsByTagName('div')[2];
         const addProductButton = document.getElementById('add-product-button');
         addProductButton.addEventListener('click', (e) => {
             e.preventDefault();
@@ -66,8 +68,8 @@ export class Products {
             });
 
             productsList.append(NewProductInput);
-            const productContainer = document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1];
-            let inputLists = productContainer.parentNode.parentNode.querySelectorAll('div');
+            const productContainer = document.querySelectorAll('.product-container')[document.querySelectorAll('.product-container').length - 1];
+            let inputLists = productContainer.querySelectorAll('div');
             let quantityMask = IMask(
                 inputLists[1].querySelector('input'),
                 {
@@ -103,7 +105,7 @@ export class Products {
             this.calculateNetValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[4].querySelector('input'));
             this.calculateTaxValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[3].querySelector('input'), inputLists[5].querySelector('input'));
             this.calculateGrossValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[3].querySelector('input'), inputLists[4].querySelector('input'), inputLists[5].querySelector('input'), inputLists[6].querySelector('input'));
-            this.deleteProduct(inputLists[8].querySelector('i'));
+            this.deleteProduct(inputLists[inputLists.length -1].querySelector('i'));
             this.toggleDeleteButtons();
         })
     }

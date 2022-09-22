@@ -41,17 +41,18 @@ class InvoiceController extends AbstractController
                 $invoiceProductHelper->createRecord($this->getUser()->getId(), $product);
 
             }
-            $pdf->createInvoice($invoiceTotalData, $productsData);
+            $this->addFlash('success', 'Invoice' . $invoiceTotalData['name'] . 'has been created');
+            return $this->redirectToRoute('invoice/show');
         }
 
         $userId = $this->getUser()->getId();
-        $clientsList = $clientHelper->getListForUser($userId)->toArray();
-        $productList = $productHelper->getListForUser($userId)->toArray();
+        $clientsList = $clientHelper->getListForUser($userId);
+        $productList = $productHelper->getListForUser($userId);
         return $this->render('Invoice/generate.html.twig',[
             'settings' => array_merge(...$settings),
             'invoice_form' => $form->createView(),
-            'clientsList' => $clientsList,
-            'productList' => $productList,
+            'clientsList' => $clientsList->isNotEmpty() ? $clientsList->toArray() : '',
+            'productList' => $productList->isNotEmpty() ? $productList->toArray() : '',
         ]);
     }
 
