@@ -97,7 +97,7 @@ Class ClientsController extends AbstractController
         if(empty($editedClientData))
         {
             $this->addFlash('error', 'You are not allowed to edit these client');
-            return new Response($this->redirectToRoute('show_clients'));
+            return new Response($this->redirectToRoute('clients/show'));
         }
 
         $form = $this->createForm(ClientsFormType::class, $editedClientData);
@@ -111,7 +111,7 @@ Class ClientsController extends AbstractController
 
             if(empty($fieldsToUpdate)){
                 $this->addFlash('error', 'There is nothing to change');
-                return new Response($this->redirectToRoute('show_clients'));
+                return new Response($this->redirectToRoute('clients/show'));
             }
 
             Clients::query()
@@ -120,7 +120,7 @@ Class ClientsController extends AbstractController
                 ->update($fieldsToUpdate);
 
             $this->addFlash('success', 'Client data updated');
-            return new Response($this->redirectToRoute('show_clients'));
+            return new Response($this->redirectToRoute('clients/show'));
 
         }
 
@@ -153,7 +153,7 @@ Class ClientsController extends AbstractController
         if(empty($editedClientData))
         {
             $this->addFlash('error', 'You are not allowed to delete these client');
-            return new Response($this->redirectToRoute('show_clients'));
+            return new Response($this->redirectToRoute('clients/show'));
         }
 
         Clients::query()
@@ -162,7 +162,7 @@ Class ClientsController extends AbstractController
             ->delete();
 
         $this->addFlash('success', 'Client has been deleted');
-        return new Response($this->redirectToRoute('show_clients'));
+        return new Response($this->redirectToRoute('clients/show'));
     }
 
 }
