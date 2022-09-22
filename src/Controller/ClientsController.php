@@ -55,7 +55,7 @@ Class ClientsController extends AbstractController
     }
 
     /**
-     * @Route("/clients/show", name="show_clients")
+     * @Route("/clients/show", name="clients/show")
      */
     public function show():Response
     {
