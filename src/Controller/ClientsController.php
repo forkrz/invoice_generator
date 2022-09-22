@@ -35,7 +35,7 @@ Class ClientsController extends AbstractController
                 $client->save();
 
                 $this->addFlash('success', 'Client created');
-                return new Response($this->redirectToRoute('show_clients'));
+                return new Response($this->redirectToRoute('clients/show'));
             }
 
 
@@ -70,13 +70,13 @@ Class ClientsController extends AbstractController
             ->toArray();
 
         if(empty($userClientsData)){
-            return new Response($this->renderView('/clients/show.html.twig', [
+            return new Response($this->renderView(':Clients:show.html.twig', [
                 'msgEmptyList' => 'You do not have any clients. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('create_client'),
             ]));
         }
 
-        return new Response($this->renderView('/clients/show.html.twig', [
+        return new Response($this->renderView(':Clients:show.html.twig', [
             'clientsData' => $userClientsData,
         ]));
     }
