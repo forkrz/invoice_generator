@@ -61,7 +61,7 @@ Class ClientsController extends AbstractController
     {
         if($this->getUser() === null)
         {
-            return $this->renderView('security/login.html.twig');
+            return new Response($this->renderView('security/login.html.twig'));
         }
 
         $userClientsData = Clients::query()

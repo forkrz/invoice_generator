@@ -72,7 +72,7 @@ class ProductsController extends AbstractController
             ]));
         }
 
-        return new Response($this->renderView('/products/show.html.twig', [
+        return new Response($this->renderView('Products/show.html.twig', [
             'productsData' => $productsUserData,
         ]));
     }
