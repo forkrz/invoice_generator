@@ -19,8 +19,7 @@
             {{ form_row(login_form.Login, {'attr': {'class': 'btn btn-success btn-block btn-lg gradient-custom-4 text-body' }}) }}
         </div>
         {% if error %}
-            {{  error.message }}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {{ error.messageKey|trans(error.messageData, 'security') }}
         {% endif %}
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}"
