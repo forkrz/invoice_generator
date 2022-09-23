@@ -48,7 +48,7 @@ Class ClientsController extends AbstractController
 
             $errors = array_merge(...$errors);
 
-            return new Response($this->renderView('/clients/create.html.twig', [
+            return new Response($this->renderView('Clients/create.html.twig', [
                 'clients_form' => $form->createView(),
                 'errors' => $errors,
             ]));
@@ -133,7 +133,7 @@ Class ClientsController extends AbstractController
 
         $errors = array_merge(...$errors);
 
-        return new Response($this->renderView('/clients/edit.html.twig', [
+        return new Response($this->renderView('Clients/edit.html.twig', [
             'clientData' => $editedClientData,
             'clients_form' => $form->createView(),
             'errors' => $errors,

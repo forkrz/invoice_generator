@@ -59,7 +59,7 @@ Class UserController extends AbstractController
             }
 
             $this->addFlash('success', 'User settings updated');
-            return new Response($this->redirectToRoute('show_clients'));
+            return new Response($this->redirectToRoute('clients/show'));
         }
 
         $errors = [];
