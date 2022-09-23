@@ -130,7 +130,7 @@
 
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NAME) }}
-                        <label class='form-label'>Product Name</label>
+                        <label class='form-label'>Name</label>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.Quantity) }}
@@ -146,15 +146,15 @@
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
-                        <label class='form-label'>Net Value</label>
+                        <label class='form-label'>Net Val</label>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
-                        <label class='form-label'>tax Value</label>
+                        <label class='form-label'>Tax Val</label>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}}) }}
-                        <label class='form-label'>Gross Value</label>
+                        <label class='form-label'>Gross Val</label>
                     </div>
                     {% if productList is not empty%}
                     <div>

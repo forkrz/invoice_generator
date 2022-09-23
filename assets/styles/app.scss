@@ -99,6 +99,11 @@ h2 {
 .user_client_container {
   display: flex;
   gap: 20vw;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
 }
 
 .user_and_client_data_container__user_container {
@@ -245,6 +250,10 @@ h2 {
 
 .btn-add {
   margin-bottom: 1rem;
+}
+
+.form-label {
+  text-align: left;
 }
 
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
