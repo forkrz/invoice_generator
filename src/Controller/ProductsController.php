@@ -18,6 +18,10 @@ class ProductsController extends AbstractController
      */
     public function create(Request $request, ValidatorInterface $validator): Response
     {
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $products = new Products();
         $form = $this->createForm(ProductsFormType::class, $products);
 
@@ -56,23 +60,23 @@ class ProductsController extends AbstractController
      */
     public function show(): Response
     {
-        if ($this->getUser() === null) {
-            return $this->render('security/login.html.twig');
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
         }
-
         $productsUserData = Products::query()
             ->where('USER_ID', $this->getUser()->getId())
             ->get()
             ->toArray();
 
         if (empty($productsUserData)) {
-            return new Response($this->renderView('Products/show.html.twig', [
+            return new Response($this->render('Products/show.html.twig', [
                 'msgEmptyList' => 'You do not have any products. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('create_product'),
             ]));
         }
 
-        return new Response($this->renderView('Products/show.html.twig', [
+        return new Response($this->render('Products/show.html.twig', [
             'productsData' => $productsUserData,
         ]));
     }
@@ -82,6 +86,10 @@ class ProductsController extends AbstractController
      */
     public function update(int $id, Request $request, ValidatorInterface $validator): Response
     {
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $editedProductsData = Products::query()
             ->where('ID', $id)
             ->where('USER_ID', $this->getUser()->getId())
@@ -126,7 +134,7 @@ class ProductsController extends AbstractController
 
         $errors = array_merge(...$errors);
 
-        return new Response($this->renderView('Products/edit.html.twig', [
+        return new Response($this->render('Products/edit.html.twig', [
             'productData' => $editedProductsData,
             'products_form' => $form->createView(),
             'errors' => $errors,
@@ -138,6 +146,10 @@ class ProductsController extends AbstractController
      */
     public function delete($id): Response
     {
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $editedProductData = Products::query()
             ->where('ID', $id)
             ->where('USER_ID', $this->getUser()->getId())

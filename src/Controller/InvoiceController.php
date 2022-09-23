@@ -22,7 +22,10 @@ class InvoiceController extends AbstractController
     #[Route('/create', name: 'invoice_create')]
     public function create(Request $request, MyPdf $pdf, ClientHelper $clientHelper, ProductHelper $productHelper, InvoiceHelper $invoiceHelper,InvoiceProductHelper $invoiceProductHelper, InvoiceTotalHelper $invoiceTotalHelper): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $settings = UsersData::query()
             ->select()
             ->where('user_id',$this->getUser()->getId())
@@ -59,17 +62,20 @@ class InvoiceController extends AbstractController
     #[Route('/invoice/show', name: 'invoice/show')]
     public function show(InvoiceTotalHelper $invoiceTotalHelper)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $invoiceTotalData = $invoiceTotalHelper->getListToDisplay($this->getUser()->getId())->toArray();
 
         if (empty($invoiceTotalData)) {
-            return new Response($this->renderView('Invoice/show.html.twig', [
+            return new Response($this->render('Invoice/show.html.twig', [
                 'msgEmptyList' => 'You do not have any invoices. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('invoice_create'),
             ]));
         }
 
-        return new Response($this->renderView('Invoice/show.html.twig', [
+        return new Response($this->render('Invoice/show.html.twig', [
             'invoicesData' => $invoiceTotalData,
         ]));
     }
@@ -77,7 +83,10 @@ class InvoiceController extends AbstractController
     #[Route('/download/id={id}', name: 'invoice_download')]
     public function download(int $id, InvoiceTotalHelper $invoiceTotalHelper, InvoiceProductHelper $invoiceProductHelper, mypdf $pdf, InvoiceHelper $invoiceHelper)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $invoice = $invoiceTotalHelper->getlistforuser($this->getuser()->getid())->where('ID', $id)->first();
 
         if (empty($invoice)) {

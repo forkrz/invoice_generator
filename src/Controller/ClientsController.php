@@ -17,6 +17,10 @@ Class ClientsController extends AbstractController
      */
     public function create(Request $request, ValidatorInterface $validator):Response
     {
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $clients = new Clients();
         $form = $this->createForm(ClientsFormType::class, $clients);
 
@@ -48,7 +52,7 @@ Class ClientsController extends AbstractController
 
             $errors = array_merge(...$errors);
 
-            return new Response($this->renderView('Clients/create.html.twig', [
+            return new Response($this->render('Clients/create.html.twig', [
                 'clients_form' => $form->createView(),
                 'errors' => $errors,
             ]));
@@ -61,7 +65,7 @@ Class ClientsController extends AbstractController
     {
         if($this->getUser() === null)
         {
-            return new Response($this->renderView('security/login.html.twig'));
+            return new Response($this->redirectToRoute('app_login'));
         }
 
         $userClientsData = Clients::query()
@@ -70,13 +74,13 @@ Class ClientsController extends AbstractController
             ->toArray();
 
         if(empty($userClientsData)){
-            return new Response($this->renderView('Clients/show.html.twig', [
+            return new Response($this->render('Clients/show.html.twig', [
                 'msgEmptyList' => 'You do not have any clients. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('create_client'),
             ]));
         }
 
-        return new Response($this->renderView('Clients/show.html.twig', [
+        return new Response($this->render('Clients/show.html.twig', [
             'clientsData' => $userClientsData,
         ]));
     }
@@ -86,6 +90,10 @@ Class ClientsController extends AbstractController
      */
     public function update($id, Request $request,ValidatorInterface $validator):Response
     {
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $editedClientData = Clients::query()
             ->where('ID', $id)
             ->where('USER_ID',$this->getUser()->getId())
@@ -133,7 +141,7 @@ Class ClientsController extends AbstractController
 
         $errors = array_merge(...$errors);
 
-        return new Response($this->renderView('Clients/edit.html.twig', [
+        return new Response($this->render('Clients/edit.html.twig', [
             'clientData' => $editedClientData,
             'clients_form' => $form->createView(),
             'errors' => $errors,
@@ -145,6 +153,10 @@ Class ClientsController extends AbstractController
      */
     public function delete($id):Response
     {
+        if($this->getUser() === null)
+        {
+            return new Response($this->redirectToRoute('app_login'));
+        }
         $editedClientData = Clients::query()
             ->where('ID', $id)
             ->where('USER_ID',$this->getUser()->getId())

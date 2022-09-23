@@ -39,7 +39,7 @@ class ClientUserDateInvoiceFormType extends AbstractType
                 'entry_type' => ProductsInvoiceFormType::class,
                 'allow_add' => true,
                 ])
-            ->add('submit', SubmitType::class);
+            ->add('Generate', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

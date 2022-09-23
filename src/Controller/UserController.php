@@ -26,7 +26,7 @@ Class UserController extends AbstractController
     {
         if($this->getUser() === null)
         {
-            return $this->render('security/login.html.twig');
+            return new Response($this->redirectToRoute('app_login'));
         }
 
         $userSettings = UsersData::query()
@@ -71,7 +71,7 @@ Class UserController extends AbstractController
 
         $errors = array_merge(...$errors);
 
-        return new Response($this->renderView('users/Settings.html.twig',['userSettings' => $userSettings,
+        return new Response($this->render('users/Settings.html.twig',['userSettings' => $userSettings,
             'user_settings_form' => $form->createView(),
             'errors' => $errors]));
     }
