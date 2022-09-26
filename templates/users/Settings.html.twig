@@ -11,6 +11,7 @@
         <div class="form-outline mb-4">
             {{ form_widget(user_settings_form.NIP, {'id': 'NIP','attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(user_settings_form.NIP,null, {'label': ' Client Nip', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="nip-error">Nip must have exactly 10 numbers</div>
             {% if errors.nip is defined %}
                 <div style="color: red">{{ errors.nip }}</div>
             {% endif %}
@@ -19,6 +20,7 @@
         <div class="form-outline mb-4">
             {{ form_widget(user_settings_form.NAME, {'id': 'NAME', 'attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(user_settings_form.NAME,null, {'label': 'Company Name', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="name-error">These field cannot be empty.</div>
             {% if errors.NAME is defined %}
                 <div style="color: red">{{ errors.name }}</div>
             {% endif %}
@@ -27,6 +29,7 @@
         <div class="form-outline mb-4">
             {{ form_widget(user_settings_form.STREET, {'id': 'STREET', 'attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(user_settings_form.STREET,null, {'label': 'Street', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="street-error">These field cannot be empty.</div>
             {% if errors.street is defined %}
                 <div style="color: red">{{ errors.street }}</div>
             {% endif %}
@@ -35,6 +38,7 @@
         <div class="form-outline mb-4">
             {{ form_widget(user_settings_form.ZIP_CODE, {'id': 'ZIP','attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(user_settings_form.ZIP_CODE,null, {'label': 'Zip Code', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="zip-code-error">These field must match pattern 00-000.</div>
             {% if errors.zipCode is defined %}
                 <div style="color: red">{{ errors.zipCode }}</div>
             {% endif %}
@@ -43,6 +47,7 @@
         <div class="form-outline mb-4">
             {{ form_widget(user_settings_form.CITY, {'id': 'CITY', 'attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(user_settings_form.CITY,null, {'label': 'City', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="city-error">These field cannot be empty.</div>
             {% if errors.city is defined %}
                 <div style="color: red">{{ errors.city }}</div>
             {% endif %}
@@ -51,6 +56,7 @@
         <div class="form-outline mb-4">
             {{ form_widget(user_settings_form.EMAIL, {'id': 'EMAIL', 'attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(user_settings_form.EMAIL,null, {'label': 'EMAIL', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="email-error">These field cannot be empty.</div>
             {% if errors.email is defined %}
                 <div style="color: red">{{ errors.email }}</div>
             {% endif %}

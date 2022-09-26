@@ -6,28 +6,30 @@
 {% block body %}
 
     <div class="single-form-container">
-        <h2 class="text-uppercase text-center mb-5">Edit Product</h2>
+        <h2 class="text-uppercase text-center mb-5">Create a Product</h2>
 
         {{ form_start(products_form, {'method': 'POST'}) }}
         <div class="form-outline mb-4">
             {{ form_widget(products_form.NAME, {'id': 'NAME','attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(products_form.NAME,null, {'label': 'Name', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="name-error">These field cannot be empty.</div>
             {% if errors.name is defined %}
                 <div style="color: red">{{ errors.name }}</div>
             {% endif %}
         </div>
 
         <div class="form-outline mb-4">
-            {{ form_widget(products_form.NET_PRICE, {'id': 'NET_PRICE','attr': {'class': 'form-control form-control-lg'}}) }}
+            {{ form_widget(products_form.NET_PRICE, {'id': 'NET_PRICE', 'attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(products_form.NET_PRICE,null, {'label': 'Price', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="tax-error">These field cannot be empty.</div>
             {% if errors.price is defined %}
                 <div style="color: red">{{ errors.price }}</div>
             {% endif %}
         </div>
-
         <div class="form-outline mb-4">
             {{ form_widget(products_form.TAX_RATE, {'id': 'TAX_RATE','attr': {'class': 'form-control form-control-lg'}}) }}
             {{ form_label(products_form.TAX_RATE,null, {'label': 'Tax rate', 'label_attr': {'class': 'form-label'}}) }}
+            <div class="error-msg" id="price-error">These field cannot be empty.</div>
             {% if errors.taxRate is defined %}
                 <div style="color: red">{{ errors.taxRate }}</div>
             {% endif %}

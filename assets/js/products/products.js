@@ -12,28 +12,32 @@ export class Products {
         return !el.value.trim().length;
     }
 
-    toggleErrorClass(el, isOk) {
+    toggleError(el,message, isOk) {
         !isOk ? el.classList.add('error') : el.classList.remove('error');
+        !isOk ? message.style.display = 'block' : message.style.display = 'none';
     }
 
     checkName() {
         const name = document.getElementById('NAME');
-        const check = !this.checkIfEmpty(name)
-        this.toggleErrorClass(name, check);
+        const errorMsg = document.getElementById('name-error');
+        const check = !this.checkIfEmpty(name);
+        this.toggleError(name, errorMsg, check);
         return check;
     }
 
     checkPrice() {
         const name = document.getElementById('NET_PRICE');
-        const check = !this.checkIfEmpty(name)
-        this.toggleErrorClass(name, check);
+        const errorMsg = document.getElementById('price-error');
+        const check = !this.checkIfEmpty(name);
+        this.toggleError(name, errorMsg, check);
         return check;
     }
 
     checkTaxRate() {
         const name = document.getElementById('TAX_RATE');
-        const check = !this.checkIfEmpty(name)
-        this.toggleErrorClass(name, check);
+        const errorMsg = document.getElementById('tax-error');
+        const check = !this.checkIfEmpty(name);
+        this.toggleError(name,errorMsg, check);
         return check;
     }
 }
