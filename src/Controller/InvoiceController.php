@@ -54,8 +54,8 @@ class InvoiceController extends AbstractController
         return $this->render('Invoice/generate.html.twig',[
             'settings' => array_merge(...$settings),
             'invoice_form' => $form->createView(),
-            'clientsList' => $clientsList->isNotEmpty() ? $clientsList->toArray() : '',
-            'productList' => $productList->isNotEmpty() ? $productList->toArray() : '',
+            'clientsList' => $clientsList->isNotEmpty() ? $clientsList->toArray() : [],
+            'productList' => $productList->isNotEmpty() ? $productList->toArray() : [],
         ]);
     }
 
@@ -69,13 +69,13 @@ class InvoiceController extends AbstractController
         $invoiceTotalData = $invoiceTotalHelper->getListToDisplay($this->getUser()->getId())->toArray();
 
         if (empty($invoiceTotalData)) {
-            return new Response($this->render('Invoice/show.html.twig', [
+            return new Response($this->renderView('Invoice/show.html.twig', [
                 'msgEmptyList' => 'You do not have any invoices. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('invoice_create'),
             ]));
         }
 
-        return new Response($this->render('Invoice/show.html.twig', [
+        return new Response($this->renderView('Invoice/show.html.twig', [
             'invoicesData' => $invoiceTotalData,
         ]));
     }

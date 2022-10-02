@@ -20,14 +20,34 @@ export class Validators {
             if (userNip.value !== clientNip.value) {
                 userNip.classList.remove('error');
                 clientNip.classList.remove('error');
+                document.getElementById('user-nip-error').style.display = 'none';
+                document.getElementById('client-nip-error').style.display = 'none';
                 return true;
             } else {
                 userNip.classList.add('error');
                 clientNip.classList.add('error');
+                document.getElementById('user-nip-error').style.display = 'block';
+                document.getElementById('client-nip-error').style.display = 'block';
+                document.getElementById('user-nip-error').textContent = 'Nips cannot be the same';
+                document.getElementById('client-nip-error').textContent = 'Nips cannot be the same';
             }
         } else {
-            userNipCheck ? userNip.classList.remove('error') : userNip.classList.add('error');
-            clientNipCheck ? clientNip.classList.remove('error') : clientNip.classList.add('error');
+            if(userNipCheck) {
+                userNip.classList.remove('error');
+                document.getElementById('user-nip-error').style.display = 'none';
+            } else{
+                userNip.classList.add('error');
+                document.getElementById('user-nip-error').innerText('Nip must have exactly 10 numbers');
+                document.getElementById('user-nip-error').style.display = 'block';
+            }
+            if(clientNipCheck) {
+                clientNip.classList.remove('error');
+                document.getElementById('client-nip-error').style.display = 'none';
+            } else {
+                clientNip.classList.add('error');
+                document.getElementById('client-nip-error').innerText('Nip must have exactly 10 numbers');
+                document.getElementById('client-nip-error').style.display = 'block';
+            }
         }
     }
 
@@ -38,8 +58,22 @@ export class Validators {
         const clientZipCode = document.getElementById('client_user_date_invoice_form_CLIENT_ZIP_CODE');
         const userZipCodeCheck = regex.test(userZipCode.value);
         const clientZipCodeCheck = regex.test(clientZipCode.value);
-        userZipCodeCheck ? userZipCode.classList.remove('error') : userZipCode.classList.add('error');
-        clientZipCodeCheck ? clientZipCode.classList.remove('error') : clientZipCode.classList.add('error');
+        if(userZipCodeCheck) {
+            userZipCode.classList.remove('error')
+            document.getElementById('user-zip-code-error').style.display = 'none';
+        } else {
+            userZipCode.classList.add('error');
+            document.getElementById('user-zip-code-error').style.display = 'block';
+        }
+
+        if(clientZipCodeCheck) {
+            clientZipCode.classList.remove('error')
+            document.getElementById('client-zip-code-error').style.display = 'none';
+        } else {
+            clientZipCode.classList.add('error');
+            document.getElementById('client-zip-code-error').style.display = 'block';
+        }
+
         return (userZipCodeCheck && clientZipCodeCheck);
     }
 

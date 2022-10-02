@@ -49,7 +49,7 @@ class ProductsController extends AbstractController
 
         $errors = array_merge(...$errors);
 
-        return new Response($this->render('Products/create.html.twig', [
+        return new Response($this->renderView('Products/create.html.twig', [
             'products_form' => $form->createView(),
             'errors' => $errors,
         ]));
@@ -70,13 +70,13 @@ class ProductsController extends AbstractController
             ->toArray();
 
         if (empty($productsUserData)) {
-            return new Response($this->render('Products/show.html.twig', [
+            return new Response($this->renderView('Products/show.html.twig', [
                 'msgEmptyList' => 'You do not have any products. You can add them&nbsp;',
                 'msgLink' => $this->generateUrl('create_product'),
             ]));
         }
 
-        return new Response($this->render('Products/show.html.twig', [
+        return new Response($this->renderView('Products/show.html.twig', [
             'productsData' => $productsUserData,
         ]));
     }
@@ -134,7 +134,7 @@ class ProductsController extends AbstractController
 
         $errors = array_merge(...$errors);
 
-        return new Response($this->render('Products/edit.html.twig', [
+        return new Response($this->renderView('Products/edit.html.twig', [
             'productData' => $editedProductsData,
             'products_form' => $form->createView(),
             'errors' => $errors,

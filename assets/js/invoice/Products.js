@@ -3,9 +3,8 @@ import IMask from "imask";
 export class Products {
 
     init() {
-        const productContainer = document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1];
-        let inputLists = document.getElementById('client_user_date_invoice_form_Product___name___NAME').parentNode.parentNode.querySelectorAll('div');
-
+        const productContainer = document.querySelectorAll('.product-container')[document.querySelectorAll('.product-container').length - 1];
+        let inputLists = productContainer.querySelectorAll('.product-container > div');
         let quantityMask = IMask(
             inputLists[1].querySelector('input'),
             {
@@ -38,8 +37,8 @@ export class Products {
             });
 
         this.addNewProductInput();
-        if(typeof productContainer !== 'undefined'){
-            this.fillProductData(productContainer, netPriceMask, taxRateMask);
+        if(typeof document.querySelectorAll('.product-container')[document.querySelectorAll('.product-select').length - 1] !== 'undefined'){
+            this.fillProductData(document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1], netPriceMask, taxRateMask);
         }
         this.calculateNetValue(document.getElementById('client_user_date_invoice_form_Product___name___Quantity'), document.getElementById('client_user_date_invoice_form_Product___name___NET_PRICE'), document.getElementById('client_user_date_invoice_form_Product___name___NET_VALUE'));
         this.calculateTaxValue(document.getElementById('client_user_date_invoice_form_Product___name___Quantity'), document.getElementById('client_user_date_invoice_form_Product___name___NET_PRICE'), document.getElementById('client_user_date_invoice_form_Product___name___TAX_RATE'), document.getElementById('client_user_date_invoice_form_Product___name___TAX_VALUE'));
@@ -65,13 +64,16 @@ export class Products {
                     elChild.name = elChild.name.replace('__name__', currentIndex + 1);
                     elChild.value = '';
                 })
+                el.querySelectorAll('.error-msg').forEach((elem) => {
+                    let id = elem.id.split('-');
+                    elem.id = id[0] + '-' + id[1] + '-' + parseInt(currentIndex + 1);
+                })
             });
 
             productsList.append(NewProductInput);
-            const productContainer = document.querySelectorAll('.product-container')[document.querySelectorAll('.product-container').length - 1];
-            let inputLists = productContainer.querySelectorAll('div');
+            let inputLists = NewProductInput.querySelectorAll('div > input');
             let quantityMask = IMask(
-                inputLists[1].querySelector('input'),
+                inputLists[1],
                 {
                     mask: Number,
                     min: 1,
@@ -81,7 +83,7 @@ export class Products {
                 });
 
             let netPriceMask = IMask(
-                inputLists[2].querySelector('input'),
+                inputLists[2],
                 {
                     mask: Number,
                     min: 1,
@@ -92,7 +94,7 @@ export class Products {
                 });
 
             let taxRateMask = IMask(
-                inputLists[3].querySelector('input'),
+                inputLists[3],
                 {
                     mask: Number,
                     min: 1,
@@ -101,11 +103,13 @@ export class Products {
                     signed: false
                 });
 
-            this.fillProductData(productContainer, netPriceMask, taxRateMask);
-            this.calculateNetValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[4].querySelector('input'));
-            this.calculateTaxValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[3].querySelector('input'), inputLists[5].querySelector('input'));
-            this.calculateGrossValue(inputLists[1].querySelector('input'), inputLists[2].querySelector('input'), inputLists[3].querySelector('input'), inputLists[4].querySelector('input'), inputLists[5].querySelector('input'), inputLists[6].querySelector('input'));
-            this.deleteProduct(inputLists[inputLists.length -1].querySelector('i'));
+            if(typeof document.querySelectorAll('.product-container')[document.querySelectorAll('.product-select').length - 1] !== 'undefined') {
+                this.fillProductData(document.querySelectorAll('.product-select')[document.querySelectorAll('.product-select').length - 1], netPriceMask, taxRateMask)
+            }
+            this.calculateNetValue(inputLists[1], inputLists[2], inputLists[4]);
+            this.calculateTaxValue(inputLists[1], inputLists[2], inputLists[3], inputLists[5]);
+            this.calculateGrossValue(inputLists[1], inputLists[2], inputLists[3], inputLists[4], inputLists[5], inputLists[6]);
+            this.deleteProduct(NewProductInput.querySelector('i'));
             this.toggleDeleteButtons();
         })
     }
@@ -120,15 +124,15 @@ export class Products {
                 'tax': selectedProduct.getAttribute('data-tax-rate'),
             }
             const productContainer = el.parentNode.parentNode;
-            const inputLists = productContainer.querySelectorAll('div');
-            inputLists[0].querySelector('input').value = productData.name;
-            inputLists[2].querySelector('input').value = productData.price;
-            inputLists[3].querySelector('input').value = productData.tax;
+            const inputLists = productContainer.querySelectorAll('input');
+            inputLists[0].value = productData.name;
+            inputLists[2].value = productData.price;
+            inputLists[3].value = productData.tax;
 
             netPriceMask.updateValue();
             taxRateMask.updateValue();
-            inputLists[2].querySelector('input').dispatchEvent(new Event('change'));
-            inputLists[3].querySelector('input').dispatchEvent(new Event('change'));
+            inputLists[2].dispatchEvent(new Event('change'));
+            inputLists[3].dispatchEvent(new Event('change'));
         })
     }
 

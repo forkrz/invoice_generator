@@ -34,9 +34,9 @@ export class Clients {
                 mask: '0000000000',
             });
         const ClientsData = document.getElementById('clientsListData');
-        const dataContainers = ClientsData.querySelectorAll('div');
-        dataContainers.forEach(function (el, index) {
-            el.querySelector('input').value = Object.values(clientData)[index];
+        const inputs = ClientsData.querySelectorAll('div > input');
+        inputs.forEach(function (el, index) {
+            el.value = Object.values(clientData)[index];
         })
         zipCodeMask.updateValue();
         NipMask.updateValue();
