@@ -14,7 +14,7 @@ export class Settings {
 
     toggleErrorInfo(element,message, isOk) {
         !isOk ? element.classList.add('error') : element.classList.remove('error');
-        !isOk ? message.style.display = 'block' : message.style.display = 'none';
+        !isOk ? message.style.visibility = 'visible' : message.style.visibility = 'hidden';
     }
 
 

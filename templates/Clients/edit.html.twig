@@ -46,7 +46,7 @@
 
         <div class="form-outline mb-4">
             {{ form_widget(clients_form.CITY, {'id': 'CITY','attr': {'class': 'form-control form-control-lg'}}) }}
-            {{ form_label(clients_form.CITY,null, {'label': 'CITY', 'label_attr': {'class': 'form-label'}}) }}
+            {{ form_label(clients_form.CITY,null, {'label': 'City', 'label_attr': {'class': 'form-label'}}) }}
             <div class="error-msg" id="city-error">These field cannot be empty.</div>
             {% if errors.city is defined %}
                 <div style="color: red">{{ errors.city }}</div>
@@ -55,7 +55,7 @@
 
         <div class="form-outline mb-4">
             {{ form_widget(clients_form.EMAIL, {'id': 'EMAIL','attr': {'class': 'form-control form-control-lg'}}) }}
-            {{ form_label(clients_form.EMAIL,null, {'label': 'EMAIL', 'label_attr': {'class': 'form-label'}}) }}
+            {{ form_label(clients_form.EMAIL,null, {'label': 'Email', 'label_attr': {'class': 'form-label'}}) }}
             <div class="error-msg" id="email-error">These field cannot be empty.</div>
             {% if errors.email is defined %}
                 <div style="color: red">{{ errors.email }}</div>

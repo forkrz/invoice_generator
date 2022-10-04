@@ -26,40 +26,40 @@
                 <div class="user_and_client_data_container__user_container" id="users_data">
                     <h2> User</h2>
                     <div class="user_container__user_data">
-                        <div class="user_data__user_inputs">
+                        <div class="create_invoice_user_client_inputs_containers">
                             {{ form_widget(invoice_form.USER_NIP, {'attr': {'class':  'create_invoice_inputs','value': settings.NIP|default('')}}) }}
                             <label class='form-label'>NIP</label>
-                            <div class="error-msg" id="user-nip-error">Nip must have exactly 10 numbers</div>
+                            <div class="invoice-generate-error-msg" id="user-nip-error">Nip must have exactly 10 numbers</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.USER_NAME, {'attr': {'class':  'create_invoice_inputs','value': settings.NAME|default('')}}) }}
                             <label class='form-label'>Name</label>
-                            <div class="error-msg" id="user-name-error">These field cannot be empty.</div>
+                            <div class="invoice-generate-error-msg" id="user-name-error">These field cannot be empty.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.USER_STREET, {'attr': {'class':  'create_invoice_inputs','value': settings.STREET|default('')}}) }}
                             <label class='form-label'>Street</label>
-                            <div class="error-msg" id="user-street-error">These field cannot be empty.</div>
+                            <div class="invoice-generate-error-msg" id="user-street-error">These field cannot be empty.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.USER_ZIP_CODE, {'attr': {'class':  'create_invoice_inputs','value': settings.ZIP_CODE|default('')}}) }}
                             <label class='form-label'>Zip-Code</label>
-                            <div class="error-msg" id="user-zip-code-error">These field must match pattern 00-000.</div>
+                            <div class="invoice-generate-error-msg" id="user-zip-code-error">These field must match pattern 00-000.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.USER_CITY, {'attr': {'class':  'create_invoice_inputs','value': settings.CITY|default('')}}) }}
                             <label class='form-label'>City</label>
-                            <div class="error-msg" id="user-city-error">These field cannot be empty.</div>
+                            <div class="invoice-generate-error-msg" id="user-city-error">These field cannot be empty.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.USER_EMAIL, {'attr': {'class':  'create_invoice_inputs','value': settings.EMAIL|default('')}}) }}
                             <label class='form-label'>Email</label>
-                            <div class="error-msg" id="user-email-error">These field must be an email.</div>
+                            <div class="invoice-generate-error-msg" id="user-email-error">These field must be an email.</div>
                         </div>
                     </div>
                 </div>
@@ -70,37 +70,37 @@
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.CLIENT_NIP, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>NIP</label>
-                            <div class="error-msg" id="client-nip-error">Nip must have exactly 10 numbers</div>
+                            <div class="invoice-generate-error-msg" id="client-nip-error">Nip must have exactly 10 numbers</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.CLIENT_NAME, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Name</label>
-                            <div class="error-msg" id="client-name-error">These field cannot be empty.</div>
+                            <div class="invoice-generate-error-msg" id="client-name-error">These field cannot be empty.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.CLIENT_STREET, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Street</label>
-                            <div class="error-msg" id="client-street-error">These field cannot be empty.</div>
+                            <div class="invoice-generate-error-msg" id="client-street-error">These field cannot be empty.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.CLIENT_ZIP_CODE, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Zip-Code</label>
-                            <div class="error-msg" id="client-zip-code-error">These field must match pattern 00-000.</div>
+                            <div class="invoice-generate-error-msg" id="client-zip-code-error">These field must match pattern 00-000.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.CLIENT_CITY, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>City</label>
-                            <div class="error-msg" id="client-city-error">These field cannot be empty.</div>
+                            <div class="invoice-generate-error-msg" id="client-city-error">These field cannot be empty.</div>
                         </div>
 
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.CLIENT_EMAIL, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Email</label>
-                            <div class="error-msg" id="client-email-error">These field must be an email.</div>
+                            <div class="invoice-generate-error-msg" id="client-email-error">These field must be an email.</div>
                         </div>
 
                     </div>
@@ -116,19 +116,19 @@
                     <div class="dates_inputs__input_containers">
                         {{ form_widget(invoice_form.DATE_OF_ISSUE, {'attr': {'class':  'create_invoice_inputs'}}) }}
                         <label class='form-label'>Creation Date</label>
-                        <div class="error-msg" id="date-of-issue-error">These field must match pattern DD.MM.YYYY .</div>
+                        <div class="invoice-generate-error-msg" id="date-of-issue-error">These field must match pattern DD.MM.YYYY .</div>
                     </div>
 
                     <div class="dates_inputs__input_containers">
                         {{ form_widget(invoice_form.PAY_BY, {'attr': {'class':  'create_invoice_inputs'}}) }}
                         <label class='form-label'>Paid to</label>
-                        <div class="error-msg" id="pay-by-error">These field must match pattern DD.MM.YYYY .</div>
+                        <div class="invoice-generate-error-msg" id="pay-by-error">These field must match pattern DD.MM.YYYY .</div>
                     </div>
 
                     <div class="dates_inputs__input_containers">
                         {{ form_widget(invoice_form.REALISED_ON, {'attr': {'class':  'create_invoice_inputs'}}) }}
                         <label class='form-label'>Service Date</label>
-                        <div class="error-msg" id="realised-on-error">These field must match pattern DD.MM.YYYY .</div>
+                        <div class="invoice-generate-error-msg" id="realised-on-error">These field must match pattern DD.MM.YYYY .</div>
                     </div>
                 </div>
             </div>
@@ -146,37 +146,37 @@
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NAME) }}
                         <label class='form-label'>Name</label>
-                        <div class="error-msg" id="product-name-error-0">These field cannot be empty.</div>
+                        <div class="invoice-generate-error-msg" id="product-name-error-0">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.Quantity) }}
                         <label class='form-label'>Quantity</label>
-                        <div class="error-msg" id="product-quantity-error-0">These field cannot be empty.</div>
+                        <div class="invoice-generate-error-msg" id="product-quantity-error-0">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NET_PRICE) }}
                         <label class='form-label'>Net Price</label>
-                        <div class="error-msg" id="product-price-error-0">These field cannot be empty.</div>
+                        <div class="invoice-generate-error-msg" id="product-price-error-0">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_RATE) }}
                         <label class='form-label'>Tax Rate</label>
-                        <div class="error-msg" id="product-tax-error-0">These field cannot be empty.</div>
+                        <div class="invoice-generate-error-msg" id="product-tax-error-0">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
                         <label class='form-label'>Net Val</label>
-                        <div class="error-msg">These field cannot be empty.</div>
+                        <div class="invoice-generate-error-msg">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
                         <label class='form-label'>Tax Val</label>
-                        <div class="error-msg">These field cannot be empty.</div>
+                        <div class="invoice-generate-error-msg">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}}) }}
                         <label class='form-label'>Gross Val</label>
-                        <div class="error-msg">These field cannot be empty.</div>
+                        <div class="invoice-generate-error-msg">These field cannot be empty.</div>
                     </div>
                     {% if productList is not empty%}
                     <div>

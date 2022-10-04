@@ -14,7 +14,7 @@ export class Products {
 
     toggleError(el,message, isOk) {
         !isOk ? el.classList.add('error') : el.classList.remove('error');
-        !isOk ? message.style.display = 'block' : message.style.display = 'none';
+        !isOk ? message.style.visibility = 'visible' : message.style.visibility = 'hidden';
     }
 
     checkName() {

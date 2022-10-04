@@ -24,33 +24,33 @@ export class Validators {
             if (userNip.value !== clientNip.value) {
                 userNip.classList.remove('error');
                 clientNip.classList.remove('error');
-                document.getElementById('user-nip-error').style.display = 'none';
-                document.getElementById('client-nip-error').style.display = 'none';
+                document.getElementById('user-nip-error').style.visibility = 'hidden';
+                document.getElementById('client-nip-error').style.visibility = 'hidden';
                 return true;
             } else {
                 userNip.classList.add('error');
                 clientNip.classList.add('error');
-                document.getElementById('user-nip-error').style.display = 'block';
-                document.getElementById('client-nip-error').style.display = 'block';
+                document.getElementById('user-nip-error').style.visibility = 'visible';
+                document.getElementById('client-nip-error').style.visibility = 'visible';
                 document.getElementById('user-nip-error').textContent = 'Nips cannot be the same';
                 document.getElementById('client-nip-error').textContent = 'Nips cannot be the same';
             }
         } else {
             if(userNipCheck) {
                 userNip.classList.remove('error');
-                document.getElementById('user-nip-error').style.display = 'none';
+                document.getElementById('user-nip-error').style.visibility = 'hidden';
             } else{
                 userNip.classList.add('error');
                 document.getElementById('user-nip-error').innerText('Nip must have exactly 10 numbers');
-                document.getElementById('user-nip-error').style.display = 'block';
+                document.getElementById('user-nip-error').style.visibility = 'visible';
             }
             if(clientNipCheck) {
                 clientNip.classList.remove('error');
-                document.getElementById('client-nip-error').style.display = 'none';
+                document.getElementById('client-nip-error').style.visibility = 'hidden';
             } else {
                 clientNip.classList.add('error');
                 document.getElementById('client-nip-error').innerText('Nip must have exactly 10 numbers');
-                document.getElementById('client-nip-error').style.display = 'block';
+                document.getElementById('client-nip-error').style.visibility = 'visible';
             }
         }
     }
@@ -64,18 +64,18 @@ export class Validators {
         const clientZipCodeCheck = regex.test(clientZipCode.value);
         if (userZipCodeCheck) {
             userZipCode.classList.remove('error')
-            document.getElementById('user-zip-code-error').style.display = 'none';
+            document.getElementById('user-zip-code-error').style.visibility = 'hidden';
         } else {
             userZipCode.classList.add('error');
-            document.getElementById('user-zip-code-error').style.display = 'block';
+            document.getElementById('user-zip-code-error').style.visibility = 'visible';
         }
 
         if (clientZipCodeCheck) {
             clientZipCode.classList.remove('error')
-            document.getElementById('client-zip-code-error').style.display = 'none';
+            document.getElementById('client-zip-code-error').style.visibility = 'hidden';
         } else {
             clientZipCode.classList.add('error');
-            document.getElementById('client-zip-code-error').style.display = 'block';
+            document.getElementById('client-zip-code-error').style.visibility = 'visible';
         }
 
         return (userZipCodeCheck && clientZipCodeCheck);
@@ -89,18 +89,18 @@ export class Validators {
 
         if (userNameCheck) {
             userName.classList.remove('error')
-            document.getElementById('user-name-error').style.display = 'none';
+            document.getElementById('user-name-error').style.visibility = 'hidden';
         } else {
             userName.classList.add('error');
-            document.getElementById('user-name-error').style.display = 'block';
+            document.getElementById('user-name-error').style.visibility = 'visible';
         }
 
         if (clientNameCheck) {
             clientName.classList.remove('error')
-            document.getElementById('client-name-error').style.display = 'none';
+            document.getElementById('client-name-error').style.visibility = 'hidden';
         } else {
             clientName.classList.add('error');
-            document.getElementById('client-name-error').style.display = 'block';
+            document.getElementById('client-name-error').style.visibility = 'visible';
         }
 
         return (userNameCheck && clientNameCheck);
@@ -114,18 +114,18 @@ export class Validators {
 
         if (userStreetCheck) {
             userStreet.classList.remove('error')
-            document.getElementById('user-street-error').style.display = 'none';
+            document.getElementById('user-street-error').style.visibility = 'hidden';
         } else {
             userStreet.classList.add('error');
-            document.getElementById('user-street-error').style.display = 'block';
+            document.getElementById('user-street-error').style.visibility = 'visible';
         }
 
         if (clientStreetCheck) {
             clientStreet.classList.remove('error')
-            document.getElementById('client-street-error').style.display = 'none';
+            document.getElementById('client-street-error').style.visibility = 'hidden';
         } else {
             clientStreet.classList.add('error');
-            document.getElementById('client-street-error').style.display = 'block';
+            document.getElementById('client-street-error').style.visibility = 'visible';
         }
 
         return (userStreetCheck && clientStreetCheck);
@@ -139,18 +139,18 @@ export class Validators {
 
         if (userCityCheck) {
             userCity.classList.remove('error')
-            document.getElementById('user-city-error').style.display = 'none';
+            document.getElementById('user-city-error').style.visibility = 'hidden';
         } else {
             userCity.classList.add('error');
-            document.getElementById('user-city-error').style.display = 'block';
+            document.getElementById('user-city-error').style.visibility = 'visible';
         }
 
         if (clientCityCheck) {
             clientCity.classList.remove('error')
-            document.getElementById('client-city-error').style.display = 'none';
+            document.getElementById('client-city-error').style.visibility = 'hidden';
         } else {
             clientCity.classList.add('error');
-            document.getElementById('client-city-error').style.display = 'block';
+            document.getElementById('client-city-error').style.visibility = 'visible';
         }
 
         return (userCityCheck && clientCityCheck);
@@ -166,18 +166,18 @@ export class Validators {
 
         if (userEmailCheck) {
             userEmail.classList.remove('error')
-            document.getElementById('user-email-error').style.display = 'none';
+            document.getElementById('user-email-error').style.visibility = 'hidden';
         } else {
             userEmail.classList.add('error');
-            document.getElementById('user-email-error').style.display = 'block';
+            document.getElementById('user-email-error').style.visibility = 'visible';
         }
 
         if (clientEmailCheck) {
             clientEmail.classList.remove('error')
-            document.getElementById('client-email-error').style.display = 'none';
+            document.getElementById('client-email-error').style.visibility = 'hidden';
         } else {
             clientEmail.classList.add('error');
-            document.getElementById('client-email-error').style.display = 'block';
+            document.getElementById('client-email-error').style.visibility = 'visible';
         }
 
         return (userEmailCheck && clientEmailCheck);
@@ -202,10 +202,10 @@ export class Validators {
         const nameCheck = el.value !== '';
         if (nameCheck) {
             el.classList.remove('error');
-            document.getElementById('product-name-error-' + index).style.display = 'none';
+            document.getElementById('product-name-error-' + index).style.visibility = 'hidden';
         } else {
             el.classList.add('error');
-            document.getElementById('product-name-error-' + index).style.display = 'block';
+            document.getElementById('product-name-error-' + index).style.visibility = 'visible';
         }
         return nameCheck;
     }
@@ -213,11 +213,11 @@ export class Validators {
     checkIfInputGreaterThanZero(el, index, errorIdName) {
         if (el.value !== '' || el.value > 0) {
             el.classList.remove('error')
-            document.getElementById(errorIdName + index).style.display = 'none';
+            document.getElementById(errorIdName + index).style.visibility = 'hidden';
             return true;
         } else {
             el.classList.add('error');
-            document.getElementById(errorIdName + index).style.display = 'block';
+            document.getElementById(errorIdName + index).style.visibility = 'visible';
             return false;
         }
     }

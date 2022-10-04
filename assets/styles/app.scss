@@ -9,6 +9,14 @@
   font-family: 'roboto';
 }
 
+.navbar-brand {
+  margin-right: 5rem;
+}
+
+.btn-success{
+  color: white !important;
+}
+
 .form-select {
   background-color: #efefef;
   width: auto;
@@ -43,7 +51,7 @@ h2 {
   > div:nth-child(8),
   > div:last-child {
     margin-top: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 4.5rem;
   }
 
   > div:nth-child(5),
@@ -116,6 +124,7 @@ h2 {
   border-radius: 0.25rem;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   @media (max-width: 1000px) {
+    width: 100%;
     margin-bottom: 1rem;
   }
 }
@@ -148,6 +157,9 @@ h2 {
   border-radius: 0.25rem;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   width: 40%;
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 }
 
 .wrapper__form__dates_container {
@@ -266,6 +278,16 @@ h2 {
 
 .form-label {
   text-align: left;
+}
+
+.invoice-generate-error-msg {
+  visibility: hidden;
+  color:red;
+  width:190px;
+  @media (max-width: 1000px) {
+    width: 75px;
+    text-align: left;
+  }
 }
 
 .error-msg {
