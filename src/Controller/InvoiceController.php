@@ -44,7 +44,7 @@ class InvoiceController extends AbstractController
                 $invoiceProductHelper->createRecord($this->getUser()->getId(), $product);
 
             }
-            $this->addFlash('success', 'Invoice' . $invoiceTotalData['name'] . 'has been created');
+            $this->addFlash('success', 'Invoice' . $invoiceTotalData['name'] . ' has been created');
             return $this->redirectToRoute('invoice/show');
         }
 

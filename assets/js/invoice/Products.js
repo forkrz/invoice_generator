@@ -64,11 +64,12 @@ export class Products {
                     elChild.name = elChild.name.replace('__name__', currentIndex + 1);
                     elChild.value = '';
                 })
-                el.querySelectorAll('.error-msg').forEach((elem) => {
+                const errorProductMsg = el.querySelectorAll('.invoice-generate-error-msg');
+                errorProductMsg.forEach((elem) => {
                     let id = elem.id.split('-');
                     elem.id = ''
                     for (let i = 0; i < id.length -1; i++) {
-                        elem.id += id[1];
+                        elem.id += id[i];
                         elem.id += '-'
                     }
                     elem.id += parseInt(currentIndex + 1);
