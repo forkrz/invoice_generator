@@ -59,7 +59,7 @@
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.USER_EMAIL, {'attr': {'class':  'create_invoice_inputs','value': settings.EMAIL|default('')}}) }}
                             <label class='form-label'>Email</label>
-                            <div class="error-msg" id="user-email-error">These field cannot be empty.</div>
+                            <div class="error-msg" id="user-email-error">These field must be an email.</div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <div class='create_invoice_user_client_inputs_containers'>
                             {{ form_widget(invoice_form.CLIENT_EMAIL, {'attr': {'class':  'create_invoice_inputs'}}) }}
                             <label class='form-label'>Email</label>
-                            <div class="error-msg" id="client-email-error">These field cannot be empty.</div>
+                            <div class="error-msg" id="client-email-error">These field must be an email.</div>
                         </div>
 
                     </div>
@@ -146,7 +146,7 @@
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NAME) }}
                         <label class='form-label'>Name</label>
-                        <div class="error-msg" id="product-name-0">These field cannot be empty.</div>
+                        <div class="error-msg" id="product-name-error-0">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.Quantity) }}
@@ -156,7 +156,7 @@
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NET_PRICE) }}
                         <label class='form-label'>Net Price</label>
-                        <div class="error-msg" id="product-price-0">These field cannot be empty.</div>
+                        <div class="error-msg" id="product-price-error-0">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_RATE) }}
@@ -166,14 +166,17 @@
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.NET_VALUE, { 'attr':{'disabled':'disabled'}}) }}
                         <label class='form-label'>Net Val</label>
+                        <div class="error-msg">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.TAX_VALUE, { 'attr':{'disabled':'disabled'}}) }}
                         <label class='form-label'>Tax Val</label>
+                        <div class="error-msg">These field cannot be empty.</div>
                     </div>
                     <div>
                         {{ form_widget(invoice_form.Product.vars.prototype.children.GROSS_VALUE,{ 'attr':{'disabled':'disabled'}}) }}
                         <label class='form-label'>Gross Val</label>
+                        <div class="error-msg">These field cannot be empty.</div>
                     </div>
                     {% if productList is not empty%}
                     <div>

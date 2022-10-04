@@ -66,7 +66,12 @@ export class Products {
                 })
                 el.querySelectorAll('.error-msg').forEach((elem) => {
                     let id = elem.id.split('-');
-                    elem.id = id[0] + '-' + id[1] + '-' + parseInt(currentIndex + 1);
+                    elem.id = ''
+                    for (let i = 0; i < id.length -1; i++) {
+                        elem.id += id[1];
+                        elem.id += '-'
+                    }
+                    elem.id += parseInt(currentIndex + 1);
                 })
             });
 

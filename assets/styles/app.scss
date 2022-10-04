@@ -1,5 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 
+* {
+  box-sizing: border-box;
+}
 
 .body {
   background-color: #efefef;
@@ -29,6 +32,7 @@ h2 {
   border-radius: 0.25rem;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   margin-bottom: 1rem;
+  height: 9rem;
 
   > div {
     margin-top: 0.5rem;
@@ -39,7 +43,7 @@ h2 {
   > div:nth-child(8),
   > div:last-child {
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
 
   > div:nth-child(5),
@@ -265,7 +269,7 @@ h2 {
 }
 
 .error-msg {
-  display: none;
+  visibility: hidden;
   color:red;
 }
 
